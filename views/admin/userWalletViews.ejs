@@ -1,0 +1,211 @@
+<%- include('partials/header.ejs') %>
+
+<div class="main-content">
+  <section class="section">
+    <div class="section-body">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="row">
+              <div class="col-12 wallet-box">
+                <div class="wallet" >
+                  <i class="fa-solid fa-wallet"></i>
+                  <% user.forEach( i => { %>
+                  <span><%= i.wallet %></span>
+                  <% }) %>
+                </div>
+              </div>
+            </div>
+            <div
+              class="card-header"
+              style="height: 70px; background-color: #6fd943"
+            >
+            
+              <div class="col-12">
+                <h4 class="float-left">Post</h4>
+                <div class="head-right-btn">
+                </div>
+              </div>
+            </div>
+
+            <!-- post  -->
+
+            <div class="card-body">
+              <div class="row">
+
+                <% if(!post[0]) { %>
+                  <tr>
+                    <td colspan="100%">No Post</td>
+                  </tr>
+                  <% } else {%> <%post.forEach(function(post){%>
+                <div class="col-md-4">
+                  <div class="card ">
+                    <div class="card-header mycard">
+                      <%= post.text %> 
+                    </div>
+                    <div class=" post-img">
+                      <div class="img-box">
+                        <img src="/uploads/Posts/<%= post.image %>" height="180px" alt="">
+                        <div class="card-content">
+                          <div class="card-actions">
+                            <a href="/admin/app/user/postView?id=<%= post.id %>" class="btn post-btn btn-simple text-center" rel="tooltip" data-placement="bottom" title="" data-original-title="View">
+                              <i class="material-icons">remove_red_eye</i>
+                            </a>
+                            <a href="/status/view/7609.html" class="btn post-btn btn-simple" rel="tooltip" data-placement="bottom" title="" data-original-title="View">
+                              <i class="material-icons">edit</i>
+                            </a>
+                            <a href="/status/view/7609.html" class="btn post-btn btn-simple" rel="tooltip" data-placement="bottom" title="" data-original-title="View">
+                              <i class="material-icons">notifications_active</i>
+                            </a>
+                            <a href="/status/view/7609.html" class="btn post-btn btn-simple" rel="tooltip" data-placement="bottom" title="" data-original-title="View">
+                              <i class="material-icons">close</i>
+                            </a>
+  
+                            <div class="btn  btn-simple pull-right youtube-icon" style="background-color: #cccccc7d !important;">
+                              <i class="fa-brands fa-youtube"></i>
+                              
+                              <!-- <div class="postyoutube-container"></div> -->
+                            </div>
+                          </div>
+  
+                        </div>
+                      </div>
+                      
+                    </div>
+                      
+                    <div class="card-footer">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div class="post-profile">
+                          <img src="/uploads/User/<%= post.user_id.image %>" alt="" class="post-porfile-img" style="width:30px; height:30px; border-radius: 50%;">
+                          
+                          <%= post.user_id.name %> 
+                        </div>
+                        <div class="post-months">
+                          <%= convertTimeStampToDate(post.created_at) %>
+                        </div>
+                      </div>
+                    </div>
+
+                    
+                   
+                  </div>
+                  
+                </div>
+                <% }); %> 
+             
+              </div>
+            </div>
+
+            <% } %>
+            <div
+              class="card-header"
+              style="height: 70px; background-color: #6fd943"
+            >
+              <div class="col-12">
+                <h4 class="float-left">Video</h4>
+                <div class="head-right-btn">
+                </div>
+              </div>
+            </div>
+
+            <!-- shortvideo -->
+
+            <div class="card-body">
+              <div class="row">
+
+                <% if(!sortvideo[0]) { %>
+                  <tr>
+                    <td colspan="100%">No like</td>
+                  </tr>
+                  <% } else {%> <%sortvideo.forEach(function(sortvideo){%>
+                <div class="col-md-4">
+                  <div class="card ">
+                    <div class="card-header mycard">
+                    </div>
+                    <div class=" post-img">
+                      <div class="img-box">
+                        <!-- <img src="/uploads/SortVideo/<%= sortvideo.video %>" height="180px" alt=""> -->
+                        <video src="/uploads/SortVideo/<%= sortvideo.video %>"></video>
+                        <div class="card-content">
+                          <div class="card-actions">
+                            <a href="/admin/app/user/shoerVideo?id=<%= sortvideo.id %>" class="btn post-btn btn-simple text-center" rel="tooltip" data-placement="bottom" title="" data-original-title="View">
+                              <i class="material-icons">remove_red_eye</i>
+                            </a>
+                            <a href="/status/view/7609.html" class="btn post-btn btn-simple" rel="tooltip" data-placement="bottom" title="" data-original-title="View">
+                              <i class="material-icons">edit</i>
+                            </a>
+                            <a href="/status/view/7609.html" class="btn post-btn btn-simple" rel="tooltip" data-placement="bottom" title="" data-original-title="View">
+                              <i class="material-icons">notifications_active</i>
+                            </a>
+                            <button class="btn post-btn btn-simple" >
+                              <i class="material-icons <%- sortvideo.approved ? 'bg-black' : 'bg-black' %> sortvideo-white" data-toggle="modal"  data-model="<%= JSON.stringify(sortvideo) %>" id="accept_btn" style="cursor : pointer">
+                                <%- sortvideo.approved ? 'visibility' : 'close' %></i>
+                            </button>
+  
+                            <div class="btn  btn-simple pull-right youtube-icon" style="background-color: #cccccc7d !important;">
+                              <i class="fa-brands fa-youtube"></i>
+                              
+                              <!-- <div class="postyoutube-container"></div> -->
+                            </div>
+                          </div>
+  
+                        </div>
+                      </div>
+                      
+                    </div>
+                    <div class="card-footer">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div class="post-profile">
+                          <img src="/uploads/User/<%= sortvideo.user_id.image %>" alt="" class="post-porfile-img" style="width:30px; height:30px; border-radius: 50%;">
+                          
+                          <%= sortvideo.user_id.name %> 
+                        </div>
+                        <div class="post-months">
+                          <%= convertTimeStampToDate(sortvideo.created_at) %>
+                        </div>
+                      </div>
+                    </div>
+
+                    
+                    
+                  </div>
+                  
+                </div>
+                <% }); %> <% } %>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+ 
+</div>
+
+<%- include('partials/footer.ejs') %>
+
+<%
+function convertTimeStampToDate(date){
+   date = Number(date)
+      var d = new Date(date),
+         month = '' + (d.getMonth() + 1),
+         day = '' + d.getDate(),
+         year = d.getFullYear();
+
+   if (month.length < 2)
+   month = '0' + month;
+   if (day.length < 2)
+   day = '0' + day;
+   var date = new Date();
+   date.toLocaleDateString();
+
+   return [day, month, year].join('-');
+}
+%>
+
+
+
+
+

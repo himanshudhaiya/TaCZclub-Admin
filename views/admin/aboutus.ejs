@@ -1,0 +1,91 @@
+<%- include('partials/header.ejs') %>
+
+<div class="main-content">
+  <section class="section">
+    <div class="section-body">
+      <!--  About Us Start-->
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div
+              class="card-header"
+              style="height: 70px; background-color: #6fd943"
+            >
+              <div class="col-12">
+                <h4 class="float-left">About Us</h4>
+              </div>
+            </div>
+
+            <div class="card-body">
+              <form id="form">
+                <div class="row">
+                  <div class="col-12 col-lg-12">
+                    <div class="form-group row mb-4">
+                      <label
+                        class="col-form-label text-md-right col-12 col-md-1"
+                        >Content</label
+                      >
+                      <div class="col-sm-12 col-md-11">
+                        <textarea name="content" id="summernote">
+                        <%= content %> 
+                    </textarea
+                        >
+                      </div>
+                    </div>
+                    <button
+                      type="submit"
+                      class="btn btn-info mt-3 mb-5 pull-right"
+                    >
+                      Save
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- About Us Ends -->
+    </div>
+  </section>
+</div>
+
+<%- include ('partials/footer.ejs') %>
+<script>
+  function getFormData($form) {
+    var unindexed_array = $form.serializeArray();
+    var indexed_array = {};
+
+    $.map(unindexed_array, function (n, i) {
+      indexed_array[n["name"]] = n["value"];
+    });
+
+    return indexed_array;
+  }
+
+  const form = $("#form");
+
+  form.on("submit", submitHandler);
+
+  function submitHandler(e) {
+    e.preventDefault();
+
+    var formData = getFormData($("#form"));
+    console.log(formData);
+
+    // DO POST
+    $.ajax({
+      type: "POST",
+      contentType: "application/json",
+      url: "/admin/aboutus",
+      data: JSON.stringify(formData),
+    })
+      .done((res) => {
+        console.log("About Us add successfully");
+        window.location.reload();
+      })
+      .fail(function (xhr, status, error) {
+        console.log(xhr.responseText);
+      });
+  }
+</script>

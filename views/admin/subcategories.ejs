@@ -1,0 +1,323 @@
+<%- include('partials/header.ejs') %>
+
+<div class="main-content">
+  <section class="section">
+    <div class="section-body">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div
+              class="card-header"
+              style="height: 70px; background-color: #6fd943"
+            >
+              <div class="col-12">
+                <h4 class="float-left">Subcategory</h4>
+                <div class="head-right-btn">
+                  <button
+                    class="btn btn-sm btn-secondary float-right card-text-btn"
+                    type="submit"
+                    data-bs-toggle="modal"
+                    data-bs-target="#myModal"
+                  >
+                    <a
+                      href="#"
+                      data-ajax-popup="true"
+                      data-size="md"
+                      data-title="Invite New User"
+                      data-toggle="tooltip"
+                      title=""
+                      data-bs-original-title="Add SubCategory"
+                    >
+                      Add
+                    </a>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-body">
+              <div class="row">
+                <div class="col-12">
+                  <div class="table-responsive p-2">
+                    <table class="table table-bordered table-md">
+                      <thead class="text-center">
+                        <tr>
+                          <th>Icon</th>
+                          <th>Name</th>
+                          <th>Last Update</th>
+                          <th>Created</th>
+                          <th>Action</th>
+                        
+                        </tr>
+                      </thead>
+                      <tbody class="text-center">
+                        <% if(!subcategories[0]) { %>
+                        <tr>
+                          <td colspan="100%">No subcategories</td>
+                        </tr>
+                        <% } else {%> <%subcategories.forEach(function(subcategories){%>
+                        <tr>
+                          <td>
+                            <img
+                              src="/uploads/subcategory/<%= subcategories.icon %>"
+                              alt="subcategories"
+                              height="50px"
+                              width="50px"
+                            />
+                          </td>
+                          <td><%= subcategories.name %></td>
+                          <td>
+                            <%=convertTimeStampToDate(subcategories.last_update_time)%>
+                          </td>
+                          <td>
+                            <%= convertTimeStampToDate(subcategories.created_at) %>
+                          </td>
+
+                          <td>
+                            <i
+                              class="btn btn-info btn-lg fas fa-edit"
+                              data-bs-toggle="modal"
+                              data-bs-target="#editmodal"
+                              onclick="editformupdate('<%= subcategories._id %>', '<%= subcategories.name %>');"
+                            ></i>
+                            <i
+                              class="btn btn-danger btn-lg fas fa-trash-alt"
+                              onclick="deletesubcategory('<%= subcategories._id %>');"
+                            ></i>
+                          </td>
+
+                         
+                        </tr>
+                        <% }); %> <% } %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- add model -->
+  <div class="modal" id="myModal">
+    <!-- modal  -->
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add Subcategory</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="body">
+          <div class="modal-body">
+            <form id="addnewsubcategory" class="mx-5">
+              <div class="mb-3 d-grid gap-2 col-12 mx-auto">
+                <label for="icon" class="form-label">Image</label>
+                <input
+                  type="file"
+                  class="form-control"
+                  id="icon"
+                  name="icon"
+                  placeholder="Category"
+                />
+              </div>
+              <div class="mb-3 d-grid gap-2 col-12 mx-auto">
+                <label for="title" class="form-label">Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="name"
+                  name="name"
+                  placeholder="subcategory"
+                />
+              </div>
+              <button
+                        type="submit"
+                        class="btn mt-3 pull-right"
+                        style="background-color: #6fd943; color: #fff"
+                      >
+                        Add
+                      </button>
+            </form>
+          </div>
+          <div class="col-md-12 modal-footer"></div>
+        </div>
+      </div>
+    </div>
+    <!-- modal  -->
+  </div>
+  <!-- add model -->
+
+  <!-- edit model -->
+  <div class="modal" id="editmodal">
+    <!-- modal  -->
+    <div class="modal-dialog modal-lg" style="margin-top: 100px;" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit SubCategory</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="body">
+          <div class="modal-body">
+            <form id="editsubcategory" class="mx-5">
+              <input type="hidden" id="editid" name="editid" />
+              <div class="mb-3 d-grid gap-2 col-12 mx-auto">
+                <label for="name" class="form-label">Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="editname"
+                  name="editname"
+                  placeholder="subcategory"
+                />
+              </div>
+              <button
+                type="submit"
+                class="btn btn-info mt-3 pull-right"
+              >
+                Save
+              </button>
+            </form>
+          </div>
+          <div class="col-md-12 modal-footer"></div>
+        </div>
+      </div>
+    </div>
+    <!-- modal  -->
+  </div>
+  <!-- edit model -->
+</div>
+
+<%
+function convertTimeStampToDate(date){
+   date = Number(date)
+      var d = new Date(date),
+         month = '' + (d.getMonth() + 1),
+         day = '' + d.getDate(),
+         year = d.getFullYear();
+         
+   if (month.length < 2)
+   month = '0' + month;
+   if (day.length < 2)
+   day = '0' + day;
+   var date = new Date();
+    var time = date.getHours() + ":" + date.getMinutes() //+ ":" + date.getSeconds();
+    return [day, month, year].join('-')+" "+time;
+}
+%>
+
+<%- include('partials/footer.ejs') %>
+
+<script>
+  var addform = $("#addnewsubcategory");
+
+  addform.on("submit", submitHandler);
+
+  function submitHandler(e) {
+    e.preventDefault();
+
+    // PREPARE FORM DATA
+    var formData = new FormData(addform[0]);
+    formData.append("category", getUrlParameter("id"));
+
+    // DO POST
+    $.ajax({
+      type: "POST",
+      enctype: "multipart/form-data",
+      processData: false,
+      contentType: false,
+      url: "/admin/subcategories/add",
+      data: formData,
+    })
+      .done((res) => {
+        console.log(res);
+        window.location.reload();
+      })
+      .fail(function (xhr, status, error) {
+        console.log(xhr.responseText);
+      });
+  }
+
+  function deletesubcategory(id) {
+    if (confirm("Do you really want to delete this subcategory")) {
+      // DO POST
+      $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: "/admin/subcategories/delete",
+        data: JSON.stringify({
+          id: id,
+        }),
+      })
+        .done((res) => {
+          console.log(res);
+          window.location.reload();
+        })
+        .fail(function (xhr, status, error) {
+          console.log(xhr.responseText);
+        });
+    }
+  }
+
+  var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = window.location.search.substring(1),
+      sURLVariables = sPageURL.split("&"),
+      sParameterName,
+      i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+      sParameterName = sURLVariables[i].split("=");
+
+      if (sParameterName[0] === sParam) {
+        return sParameterName[1] === undefined
+          ? true
+          : decodeURIComponent(sParameterName[1]);
+      }
+    }
+  };
+</script>
+
+<script>
+  var editform = $("#editsubcategory");
+
+  editform.on("submit", submitHandler);
+
+  function submitHandler(e) {
+    e.preventDefault();
+
+    // DO POST
+    $.ajax({
+      type: "POST",
+      contentType: "application/json",
+      url: "/admin/subcategories/edit",
+      data: JSON.stringify({
+        id: $("#editid").val(),
+        name: $("#editname").val(),
+      }),
+    })
+      .done((res) => {
+        console.log(res);
+        window.location.reload();
+      })
+      .fail(function (xhr, status, error) {
+        console.log(xhr.responseText);
+      });
+  }
+
+  function editformupdate(id, name) {
+    $("#editid").val(id);
+    $("#editname").val(name);
+  }
+</script>

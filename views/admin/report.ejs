@@ -1,0 +1,226 @@
+<%- include('partials/header.ejs') %>
+<div class="main-content">
+  <section class="section">
+    <div class="section-body">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div
+              class="card-header"
+              style="height: 70px; background-color: #6fd943"
+            >
+              <div class="col-12">
+                <h4 class="float-left">Users</h4>
+                <div class="head-right-btn">
+                  
+                </div>
+              </div>
+            </div>
+
+            <div class="card-body">
+              <div class="row">
+                <div class="col-12">
+                  <div class="table-responsive p-2">
+                    <table class="table table-bordered table-md">
+                      <thead class="text-center">
+                        <tr>
+                            <th>Name</th>
+                          <th>Post</th>
+                          <th>User</th>
+                          <th>Report</th>
+                          <th>created</th>
+                            <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody class="text-center">
+                        <% if(!report[0]) { %>
+                        <tr>
+                          <td colspan="100%">No Report</td>
+                        </tr>
+                        <% } else {%> <%report.forEach(function(report){%>
+                            <td><%= report.user_id ? report.user_id.name : "null"%></td>
+                            <td><img src="/uploads/Posts/<%= report.post_id ? report.post_id.image : "null" %>" height="70px" alt=""></td>
+                          <td><%= report.report_id ? report.report_id.name : "null"%></td>
+                          <td><%= report.comment %></td>
+                          <td>
+                            <%=convertTimeStampToDate(report.created_at)%>
+                          </td> 
+                          
+                          <!-- <td><a href="/admin/app/user/view?id=<%= report.id %> "><button class="btn btn-danger" >View</button></a></td> -->
+                         <td>
+                          <button class="btn btn-primary" onclick="deliteReport('<%- report.id %>')" >Delete</button><br>
+                          <i class="material-icons <%- report.approved ? 'bg-success' : 'bg-danger' %> report-white" data-toggle="modal"  data-model="<%= JSON.stringify(report) %>" id="accept_btn" style="cursor : pointer">
+                            <%- report.approved ? 'visibility' : 'close' %></i>
+                        </td>
+                        
+                          
+                        </tr>
+                        <% }); %> <% } %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </section>
+  <!-- edit model -->
+  <div class="modal fade" id="action">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form id="actionForm" class="mx-5">
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Post</h4>
+            <button type="button" class="close" data-dismiss="modal">
+              &times;
+            </button>
+          </div>
+  
+          <!-- Modal body -->
+          <div class="modal-body">
+            <div class="mb-3">
+              <input name="approved" type="checkbox" id="approved" data-width="100%" data-toggle="toggle"
+                data-on="Show" data-off="Hide" data-onstyle="success" data-offstyle="danger" />
+            </div>
+            <input name="id" type="hidden" id="actionid" name="actionid" />
+          </div>
+  
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+              close
+            </button>
+            <button type="submit" class="btn btn-success">save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- edit model -->
+</div>
+
+<%- include('partials/footer.ejs') %>
+
+<%
+function convertTimeStampToDate(date){
+   date = Number(date)
+      var d = new Date(date),
+         month = '' + (d.getMonth() + 1),
+         day = '' + d.getDate(),
+         year = d.getFullYear();
+
+   if (month.length < 2)
+   month = '0' + month;
+   if (day.length < 2)
+   day = '0' + day;
+   var date = new Date();
+   date.toLocaleDateString();
+
+   return [day, month, year].join('-');
+}
+%>
+
+<!-- Delete script -->
+<!-- <script>
+    $(document).ready(function() {
+        $(".delete").click(function() {
+        var id = $(this).attr("id");
+        var url = "/admin/report/delete?id=" + id;
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this imaginary file!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((willDelete) => {
+            if (willDelete) {
+            window.location.href = url;
+            }
+        });
+        });
+    });
+</script> -->
+<script>
+    function deliteReport(id) {
+      if (confirm("Do you really want to delete this record")) {
+        // DO POST
+        $.ajax({
+          type: "POST",
+          contentType: "application/json",
+          url: "/admin/report/delete",
+          data: JSON.stringify({
+            id: id,
+          }),
+        })
+          .done((res) => {
+            console.log("Blog Deleted successfully");
+            window.location.reload();
+          })
+          .fail(function (xhr, status, error) {
+            console.log(xhr.responseText);
+          });
+      }
+    }
+</script>
+
+
+
+<script>
+  $(document).on("click", "#accept_btn", function (e) {
+      let getData = $(e.target).attr('data-model');
+      let finalData = JSON.parse(getData)
+      $('#action').modal('show')
+      var data = finalData
+      // console.log(data)
+
+      $("#actionid").val(data._id);
+
+      approved ?  $("#approved").bootstrapToggle("on") : $("#approved").bootstrapToggle("off");
+      
+  })
+
+</script>
+<script>
+  function getFormData($form) {
+     var unindexed_array = $form.serializeArray();
+     var indexed_array = {};
+
+     $.map(unindexed_array, function (n, i) {
+         indexed_array[n["name"]] = n["value"];
+     });
+
+     return indexed_array;
+ }
+  var actionForm = $("#actionForm");
+  actionForm.on("submit", addslidersubmitHandler);
+
+ function addslidersubmitHandler(e) {
+     e.preventDefault();
+
+     // PREPARE FORM DATA
+     var formData = getFormData(actionForm);
+
+     formData.approved = $("#approved").is(":checked");
+
+     console.log(formData);
+     // // DO POST
+     $.ajax({
+             type: "POST",
+             contentType: "application/json",
+             url: "/admin/report/edit",
+             data: JSON.stringify(formData),
+         })
+         .done((res) => {
+             console.log("successfully");
+             window.location.reload();
+             // table.draw();
+         })
+         .fail(function (xhr, status, error) {
+             console.log(xhr.responseText);
+         });
+ }
+</script>

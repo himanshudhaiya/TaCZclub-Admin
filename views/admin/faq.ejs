@@ -1,0 +1,199 @@
+<%- include('partials/header.ejs') %>
+
+<div class="main-content">
+  <section class="section">
+    <div class="section-body">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div
+              class="card-header"
+              style="height: 70px; background-color: #6fd943"
+            >
+              <div class="col-12">
+                <h4 class="float-left">Faq</h4>
+                <div class="head-right-btn">
+                  <button
+                    class="btn btn-sm btn-secondary float-right card-text-btn"
+                    type="submit"
+                    data-bs-toggle="modal"
+                    data-bs-target="#myModal"
+                  >
+                    <a
+                      href="#"
+                      data-ajax-popup="true"
+                      data-size="md"
+                      data-title="Invite New User"
+                      data-toggle="tooltip"
+                      title=""
+                      data-bs-original-title="Add FAQ"
+                    >
+                      Add
+                    </a>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-body">
+              <div class="row">
+                <div class="col-12">
+                  <div class="table-responsive p-2">
+                    <table class="table table-bordered table-md">
+                      <thead>
+                        <tr class="text-center">
+                          <th>Title</th>
+                          <th>Description</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+
+                      <tbody>
+                        <% if(!faq[0]) { %>
+                        <tr>
+                          <td colspan="100%">No Data</td>
+                        </tr>
+                        <% } else {%> <% faq.forEach(function(faq){ %>
+                        <tr class="text-center">
+                          <td><%= faq.title %></td>
+                          <td><%= faq.description %></td>
+
+                          <td>
+                            <i
+                              class="btn btn-danger btn-lg fas fa-trash-alt"
+                              onclick="deletefaq('<%= faq._id %>');"
+                            ></i>
+                          </td>
+                        </tr>
+
+                        <% }); %> <% } %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="modal" id="myModal">
+    <!-- modal  -->
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add Faq</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="body">
+          <div class="modal-body">
+            <form
+              id="addform"
+              class="form-group font-weight-bold showcursor: true"
+            >
+              <div class="mb-3 d-grid gap-2 col-12 mx-auto">
+                <label for="title" class="form-label">Title</label>
+                <input
+                  name="title"
+                  id="title"
+                  class="form-control"
+                  placeholder="Title"
+                />
+              </div>
+              <div class="mb-3 d-grid gap-2 col-12 mx-auto">
+                <label for="description" class="form-label">Decription</label>
+                <input
+                  id="description"
+                  name="description"
+                  class="form-control"
+                  placeholder="Decription"
+                />
+              </div>
+
+              <button type="submit" class="btn btn-info mt-3 pull-right">
+                Save
+              </button>
+            </form>
+          </div>
+          <div class="col-md-12 modal-footer"></div>
+        </div>
+      </div>
+    </div>
+    <!-- modal  -->
+  </div>
+</div>
+
+<%- include ('partials/footer.ejs') %>
+
+<script>
+  function getFormData($form) {
+    var unindexed_array = $form.serializeArray();
+    var indexed_array = {};
+
+    $.map(unindexed_array, function (n, i) {
+      indexed_array[n["name"]] = n["value"];
+    });
+
+    return indexed_array;
+  }
+
+  const form = $("#addform");
+
+  form.on("submit", submitHandler);
+
+  function submitHandler(e) {
+    e.preventDefault();
+
+    // PREPARE FORM DATA
+    let formData = $("form");
+    let data = {
+      title: $("#title").val(),
+      description: $("#description").val(),
+    };
+
+    // DO POST
+    $.ajax({
+      type: "POST",
+      contentType: "application/json",
+      url: "/admin/faq/add",
+      data: JSON.stringify(data),
+    })
+
+      .done((res) => {
+        console.log("Faq add successfully");
+        window.location.reload();
+      })
+      .fail(function (xhr, status, error) {
+        console.log(xhr.responseText);
+      });
+  }
+</script>
+<script>
+  function deletefaq(id) {
+    if (confirm("Do you really want to delete this record")) {
+      // DO POST
+      $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: "/admin/faq/delete",
+        data: JSON.stringify({
+          id: id,
+        }),
+      })
+        .done((res) => {
+          console.log("Faq Deleted successfully");
+          window.location.reload();
+        })
+        .fail(function (xhr, status, error) {
+          console.log(xhr.responseText);
+        });
+    }
+  }
+</script>

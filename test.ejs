@@ -1,0 +1,65 @@
+<div class="main-content">
+  <section class="section">
+    <div class="section-body">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h4>Users</h4>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-striped" id="table-1">
+                  <thead>
+                    <tr>
+                      <th>Sr. No.</th>
+                      <th>User Name</th>
+                      <th>Email</th>
+                      <th>Modile Number</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% if(!users[0]) { %>
+                    <tr>
+                      <td colspan="100%" class="text-center">No Data</td>
+                    </tr>
+                    <% } else {%> <% users.forEach(function(user,index){%>
+
+                    <tr>
+                      <td><%= index+1 %></td>
+                      <td><%= user.username %></td>
+
+                      <td><%= user.email %></td>
+                      <td>
+                        <div class="badge badge-success badge-shadow">
+                          <%= user.mobile_number %>
+                        </div>
+                      </td>
+
+                      <td>
+                        <a
+                          href="/admin/users/view?id=<%= user._id %> "
+                          class="btn btn-primary"
+                          >Detail</a
+                        >
+                      </td>
+                    </tr>
+                    <% }); %> <% } %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+
+<!-- 8952896451 -->
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmYwODcwMzA1YTQ5ZTU0MjczMTJlOTEiLCJpYXQiOjE2NTk5MzA1MTR9.JOoiZtoB3T9eL_fQLIr5Podd1chc6EB9X_LFhyaHNvA
+<!-- 7023093925 -->
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmYwOTQ1ODc1OWIyNjhjYjRjYzMwNjYiLCJpYXQiOjE2NTk5MzM4MzB9.jCkC6uDkESkXI_lSdgF1SqTllQawEHK7p6xxOvty6eQ

@@ -1,0 +1,98 @@
+<footer class="main-footer">
+  <div class="footer-left">
+    <a href="#">TaCZclub Admin </a>
+  </div>
+  <div class="footer-right"></div>
+</footer>
+
+<script src="/assets/js/getFormData.js"></script>
+<script src="/assets/js/displayPP.js"></script>
+<script src="/assets/js/popper.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+<script src="/assets/js/snackbar.min.js"></script>
+<script src="/assets/js/switch.min.js"></script>
+<script src="/assets/js/timepicker.js"></script>
+<script src="/assets/js/getFormData.js"></script>
+<script src="/assets/js/getParam.js"></script>
+<script src="/assets/js/app.min.js"></script>
+<script src="/assets/js/page/index.js"></script>
+<script src="/assets/js/scripts.js"></script>
+<script src="/assets/js/custom.js"></script>
+<script src="/assets/js/grafscripts.js"></script>
+<script src="/assets/bundles/apexcharts/apexcharts.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.2/Chart.min.js"
+></script>
+
+<script
+  type="text/javascript"
+  src="https://www.gstatic.com/charts/loader.js"
+></script>
+
+<script
+  type="text/javascript"
+  src="https://code.highcharts.com/highcharts.js"
+></script>
+
+<script
+  type="text/javascript"
+  src="https://code.highcharts.com/modules/exporting.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.js"
+></script>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"
+  integrity="sha512-zlWWyZq71UMApAjih4WkaRpikgY9Bz1oXIW5G0fED4vk14JjGlQ1UmkGM392jEULP8jbNMiwLWdM8Z87Hu88Fw=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+></script>
+<script>
+  function renderToast(objectAssign = {}) {
+    $.toast({
+      text: objectAssign.message ? objectAssign.message : "message",
+      icon: objectAssign.icon ? objectAssign.icon : "info",
+      loader: true, // Change it to false to disable loader
+      loaderBg: "#9EC600", // To change the background
+    });
+  }
+</script>
+<script>
+  $("#summernote").summernote({
+    placeholder: "Hello stand alone ui",
+    tabsize: 2,
+    height: 100,
+    toolbar: [
+      ["style", ["style"]],
+      ["font", ["bold", "underline", "clear"]],
+      ["color", ["color"]],
+      ["para", ["ul", "ol", "paragraph"]],
+      ["table", ["table"]],
+      ["insert", ["link", "picture", "video"]],
+      ["view", ["fullscreen", "codeview", "help"]],
+    ],
+  });
+</script>
+
+<script>
+  jQuery(function ($) {
+    $(".sidebar-dropdown > a").click(function () {
+      $(".sidebar-submenu").slideUp(200);
+      if ($(this).parent().hasClass("active")) {
+        $(".sidebar-dropdown").removeClass("active");
+        $(this).parent().removeClass("active");
+      } else {
+        $(".sidebar-dropdown").removeClass("active");
+        $(this).next(".sidebar-submenu").slideDown(200);
+        $(this).parent().addClass("active");
+      }
+    });
+  });
+</script>

@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- index.html  21 Nov 2019 03:44:50 GMT -->
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no"
+      name="viewport"
+    />
+    `
+    <title>Astro-Admin Panel</title>
+    <!-- bootstrap css links -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- General CSS Files -->
+    <link rel="stylesheet" href="/assets/css/app.min.css" />
+    <link rel="stylesheet" href="/assets/bundles/jqvmap/dist/jqvmap.min.css" />
+    <link
+      rel="stylesheet"
+      href="/assets/bundles/flag-icon-css/css/flag-icon.min.css"
+    />
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/components.css" />
+    <!-- Custom style CSS -->
+    <link rel="stylesheet" href="/assets/css/custom.css" />
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="/assets/css/theme.css" />
+    <link rel="stylesheet" href="/assets/css/switch.min.css" />
+    <!-- <link rel="stylesheet" href="/assets/css/bootstrap.min.css" /> -->
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="/assets/img/favicon.ico"
+    />
+
+    <link
+      href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.css"
+      integrity="sha512-8D+M+7Y6jVsEa7RD6Kv/Z7EImSpNpQllgaEIQAtqHcI0H6F4iZknRj0Nx1DCdB+TwBaS+702BGWYC0Ze2hpExQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      .over-y {
+        overflow-y: scroll !important;
+      }
+      .sidebar-wrapper .sidebar-menu .sidebar-dropdown.active > a:after {
+        transform: rotate(90deg);
+        right: 17px;
+      }
+      ::-webkit-scrollbar-thumb:active {
+        background: #525965;
+      }
+      ::-webkit-scrollbar-track:active {
+        background: transparent;
+      }
+      .chiller-theme .sidebar-wrapper .sidebar-menu ul li:hover > a,
+      .chiller-theme
+        .sidebar-wrapper
+        .sidebar-menu
+        .sidebar-dropdown.active
+        > a,
+      .chiller-theme .sidebar-wrapper .sidebar-header .user-info,
+      .chiller-theme .sidebar-wrapper .sidebar-brand > a:hover,
+      .chiller-theme .sidebar-footer > a:hover i {
+        color: #b8bfce;
+      }
+      .chiller-theme
+        .sidebar-wrapper
+        .sidebar-menu
+        .sidebar-dropdown.active
+        a
+        i {
+        color: #16c7ff;
+        text-shadow: 0px 0px 10px rgba(22, 199, 255, 0.5);
+      }
+      .main-sidebar .sidebar-menu li a {
+        color: #333333;
+        font-size: 13px;
+      }
+      .main-sidebar .sidebar-menu li a:hover {
+        color: #333333;
+      }
+      .sidebar-submenu {
+        display: none;
+      }
+      .main-sidebar .sidebar-menu li.active a {
+        background-color: transparent !important;
+      }
+      .light-sidebar .main-sidebar .sidebar-menu li.active a {
+        background-color: #ffff;
+      }
+      .dropdown-item:hover {
+        background-color: rgba(0, 255, 0, 0.1);
+        border-radius: 10px !important;
+        margin-left: 0px !important;
+      }
+      ::-webkit-scrollbar-thumb {
+        background-color: white;
+        -webkit-border-radius: 10px;
+        border-radius: 10px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- loader -->
+    <!-- <div class="loader"></div> -->
+    <div id="app">
+      <div class="main-wrapper main-wrapper-1">
+        <!-- navbar-->
+        <div class="navbar-bg"></div>
+        <nav class="navbar navbar-expand-lg main-navbar sticky">
+          <div class="form-inline mr-auto">
+            <ul class="navbar-nav mr-3">
+              <li>
+                <a
+                  href="#"
+                  data-toggle="sidebar"
+                  class="nav-link nav-link-lg collapse-btn"
+                >
+                  <i data-feather="align-justify"></i
+                ></a>
+              </li>
+              <li>
+                <a href="#" class="nav-link nav-link-lg fullscreen-btn">
+                  <i data-feather="maximize"></i>
+                </a>
+              </li>
+              <li>
+                <form class="form-inline mr-auto">
+                  <div class="search-element">
+                    <input
+                      class="form-control"
+                      id="mysearch"
+                      type="search"
+                      placeholder="Search"
+                      aria-label="Search"
+                      data-width="200"
+                    />
+                    <button class="btn" type="submit">
+                      <i class="fas fa-search"></i>
+                    </button>
+                  </div>
+                </form>
+              </li>
+            </ul>
+          </div>
+          <ul class="navbar-nav navbar-right">
+            <li class="dropdown dropdown-list-toggle">
+              <a
+                href="#"
+                data-toggle="dropdown"
+                class="nav-link nav-link-lg message-toggle"
+                ><i data-feather="mail"></i>
+                <span class="badge headerBadge1"> 6 </span>
+              </a>
+              <div
+                class="dropdown-menu dropdown-list dropdown-menu-right pullDown"
+              >
+                <div class="dropdown-header">
+                  Messages
+                  <div class="float-right">
+                    <a href="#">Mark All As Read</a>
+                  </div>
+                </div>
+                <div class="dropdown-list-content dropdown-list-message">
+                  <a href="#" class="dropdown-item">
+                    <span class="dropdown-item-avatar text-white">
+                      <img
+                        alt="image"
+                        src="/assets/img/users/user-1.png"
+                        class="rounded-circle"
+                      />
+                    </span>
+                    <span class="dropdown-item-desc">
+                      <span class="message-user">John Deo</span>
+                      <span class="time messege-text"
+                        >Please check your mail !!</span
+                      >
+                      <span class="time">2 Min Ago</span>
+                    </span>
+                  </a>
+                  <a href="#" class="dropdown-item">
+                    <span class="dropdown-item-avatar text-white">
+                      <img
+                        alt="image"
+                        src="/assets/img/users/user-2.png"
+                        class="rounded-circle"
+                      />
+                    </span>
+                    <span class="dropdown-item-desc">
+                      <span class="message-user">Sarah Smith</span>
+                      <span class="time messege-text"
+                        >Request for leave application</span
+                      >
+                      <span class="time">5 Min Ago</span>
+                    </span>
+                  </a>
+                  <a href="#" class="dropdown-item">
+                    <span class="dropdown-item-avatar text-white">
+                      <img
+                        alt="image"
+                        src="/assets/img/users/user-5.png"
+                        class="rounded-circle"
+                      />
+                    </span>
+                    <span class="dropdown-item-desc">
+                      <span class="message-user">Jacob Ryan</span>
+                      <span class="time messege-text"
+                        >Your payment invoice is generated.</span
+                      >
+                      <span class="time">12 Min Ago</span>
+                    </span>
+                  </a>
+                  <a href="#" class="dropdown-item">
+                    <span class="dropdown-item-avatar text-white">
+                      <img
+                        alt="image"
+                        src="/assets/img/users/user-4.png"
+                        class="rounded-circle"
+                      />
+                    </span>
+                    <span class="dropdown-item-desc">
+                      <span class="message-user">Lina Smith</span>
+                      <span class="time messege-text"
+                        >hii John, I have upload doc related to task.</span
+                      >
+                      <span class="time">30 Min Ago</span>
+                    </span>
+                  </a>
+                  <a href="#" class="dropdown-item">
+                    <span class="dropdown-item-avatar text-white">
+                      <img
+                        alt="image"
+                        src="/assets/img/users/user-3.png"
+                        class="rounded-circle"
+                      />
+                    </span>
+                    <span class="dropdown-item-desc">
+                      <span class="message-user">Jalpa Joshi</span>
+                      <span class="time messege-text"
+                        >Please do as specify. Let me know if you have any
+                        query.</span
+                      >
+                      <span class="time">1 Days Ago</span>
+                    </span>
+                  </a>
+                  <a href="#" class="dropdown-item">
+                    <span class="dropdown-item-avatar text-white">
+                      <img
+                        alt="image"
+                        src="/assets/img/users/user-2.png"
+                        class="rounded-circle"
+                      />
+                    </span>
+                    <span class="dropdown-item-desc">
+                      <span class="message-user">Sarah Smith</span>
+                      <span class="time messege-text">Client Requirements</span>
+                      <span class="time">2 Days Ago</span>
+                    </span>
+                  </a>
+                </div>
+                <div class="dropdown-footer text-center">
+                  <a href="#">View All <i class="fas fa-chevron-right"></i></a>
+                </div>
+              </div>
+            </li>
+            <li class="dropdown dropdown-list-toggle">
+              <a
+                href="#"
+                id="mynotification"
+                data-toggle="dropdown"
+                class="nav-link notification-toggle nav-link-lg"
+                ><i data-feather="bell" class="bell"></i>
+              </a>
+              <div
+                class="dropdown-menu dropdown-list dropdown-menu-right pullDown"
+              >
+                <div class="dropdown-header">
+                  Notifications
+                  <div class="float-right">
+                    <a href="#">Mark All As Read</a>
+                  </div>
+                </div>
+                <div class="dropdown-list-content dropdown-list-icons">
+                  <a href="#" class="dropdown-item dropdown-item-unread">
+                    <span class="dropdown-item-icon bg-primary text-white">
+                      <i class="fas fa-code"></i>
+                    </span>
+                    <span class="dropdown-item-desc">
+                      Template update is available now!
+                      <span class="time">2 Min Ago</span>
+                    </span>
+                  </a>
+                  <a href="#" class="dropdown-item">
+                    <span class="dropdown-item-icon bg-info text-white">
+                      <i class="far fa-user"></i>
+                    </span>
+                    <span class="dropdown-item-desc">
+                      <b>You</b> and <b>Dedik Sugiharto</b> are now friends
+                      <span class="time">10 Hours Ago</span>
+                    </span>
+                  </a>
+                  <a href="#" class="dropdown-item">
+                    <span class="dropdown-item-icon bg-success text-white">
+                      <i class="fas fa-check"></i>
+                    </span>
+                    <span class="dropdown-item-desc">
+                      <b>Kusnaedi</b> has moved task <b>Fix bug header</b> to
+                      <b>Done</b> <span class="time">12 Hours Ago</span>
+                    </span>
+                  </a>
+                  <a href="#" class="dropdown-item">
+                    <span class="dropdown-item-icon bg-danger text-white">
+                      <i class="fas fa-exclamation-triangle"></i>
+                    </span>
+                    <span class="dropdown-item-desc">
+                      Low disk space. Let's clean it!
+                      <span class="time">17 Hours Ago</span>
+                    </span>
+                  </a>
+                  <a href="#" class="dropdown-item">
+                    <span class="dropdown-item-icon bg-info text-white">
+                      <i class="fas fa-bell"></i>
+                    </span>
+                    <span class="dropdown-item-desc">
+                      Welcome to TaCZclub Admin Panel!
+                      <span class="time">Yesterday</span>
+                    </span>
+                  </a>
+                </div>
+                <div class="dropdown-footer text-center">
+                  <a href="#">View All <i class="fas fa-chevron-right"></i></a>
+                </div>
+              </div>
+            </li>
+          </ul>
+          <ul class="navbar-nav navbar-right">
+            <% if(!admin[0]) { %>
+            <li class="dropdown">
+              <% } else {%> <% admin.forEach(function(admin){ %>
+              <a
+                href="#"
+                data-toggle="dropdown"
+                class="nav-link dropdown-toggle nav-link-lg nav-link-user"
+              >
+                <img
+                  alt="image"
+                  src="/uploads/profile/<%= admin.image %>"
+                  class="user-img-radious-style"
+                  style="width: 50px" />
+                <span class="d-sm-none d-lg-inline-block"></span
+              ></a>
+              <div class="dropdown-menu dropdown-menu-right pullDown">
+                <div class="dropdown-title">Hello Sarah Smith</div>
+                <a href="/admin/profile_update" class="dropdown-item has-icon">
+                  <i class="far fa-user"></i> Profile
+                </a>
+                <a href="timeline.html" class="dropdown-item has-icon">
+                  <i class="fas fa-bolt"></i>
+                  Activities
+                </a>
+                <a href="#" class="dropdown-item has-icon">
+                  <i class="fas fa-cog"></i>
+                  Settings
+                </a>
+                <div class="dropdown-divider"></div>
+                <a
+                  href="auth-login.html"
+                  class="dropdown-item has-icon text-danger"
+                >
+                  <i class="fas fa-sign-out-alt"></i>
+                  Logout
+                </a>
+              </div>
+            </li>
+            <% }); %> <% } %>
+          </ul>
+        </nav>
+        <!-- navbar -->
+
+        <!-- Main Sidebar Start -->
+        <div class="overflow" style="overflow: scroll;">
+          <div class="main-sidebar light-sidebar sidebar-style-2">
+            <aside id="sidebar-wrapper">
+              <div class="sidebar-brand m-header main-logo">
+                <a
+                  href="https://demo.rajodiya.com/taskly-saas/home"
+                  class="b-brand"
+                >
+                  <!-- ========   change your logo hear   ============ -->
+  
+                  <img
+                    src="https://demo.rajodiya.com/taskly-saas/storage/logo/logo-light.png"
+                    alt=""
+                    class=""
+                  />
+                </a>
+              </div>
+              <!-- Sidebar Menu -->
+              <ul class="sidebar-menu dash-navbar">
+                <li class="dash-item dash-hasmenu active">
+                  <a href="/admin/dashboard" class="dash-link active">
+                    <span class="dash-micon"
+                      ><i class="fa-solid fa-house"></i
+                    ></span>
+                    <span class="dash-mtext text-w">Dashboard</span>
+                  </a>
+                </li>
+  
+                <li
+                  class="dash-item dash-hasmenu sidemenu-li"
+                  id="changepassword"
+                >
+                  <a href="/admin/changepassword" class="dash-link"
+                    ><span class="dash-micon"
+                      ><i class="fa-solid fa-lock"></i></span
+                    ><span class="dash-mtext"> Change Password</span></a
+                  >
+                </li>
+  
+                <li class="dash-item dash-hasmenu">
+                  <a href="/admin/blog/list" class="dash-link">
+                    <span class="dash-micon"
+                      ><i class="fa-solid fa-blog"></i
+                    ></span>
+                    <span class="dash-mtext text-w">Blogs</span>
+                  </a>
+                </li>
+  
+                <li class="dash-item dash-hasmenu">
+                  <a href="/admin/banners/list" class="dash-link">
+                    <span class="dash-micon"
+                      ><i class="fa-solid fa-sliders"></i
+                    ></span>
+                    <span class="dash-mtext text-w">Banners</span>
+                  </a>
+                </li>
+                <li class="dash-item dash-hasmenu">
+                  <a href="/admin/category/list" class="dash-link">
+                    <span class="dash-micon"
+                      ><i class="fa-solid fa-sliders"></i
+                    ></span>
+                    <span class="dash-mtext text-w">Category</span>
+                  </a>
+                </li>
+  
+                <li class="dash-item dash-hasmenu">
+                  <a href="/admin/sliders/list" class="dash-link">
+                    <span class="dash-micon"
+                      ><i class="fa-solid fa-sliders"></i
+                    ></span>
+                    <span class="dash-mtext text-w">Sliders</span>
+                  </a>
+                </li>
+                <li class="dash-item dash-hasmenu">
+                  <a href="/admin/shortvideo/list" class="dash-link">
+                    <span class="dash-micon"
+                      ><i class="fa-solid fa-sliders"></i
+                    ></span>
+                    <span class="dash-mtext text-w">Video</span>
+                  </a>
+                </li>
+                <li class="dash-item dash-hasmenu">
+                  <a href="/admin/post/list" class="dash-link">
+                    <span class="dash-micon"
+                      ><i class="fa-solid fa-sliders"></i
+                    ></span>
+                    <span class="dash-mtext text-w">Post</span>
+                  </a>
+                </li>
+                <li class="dash-item dash-hasmenu">
+                  <a href="/admin/report/list" class="dash-link">
+                    <span class="dash-micon"
+                      ><i class="fa-solid fa-sliders"></i
+                    ></span>
+                    <span class="dash-mtext text-w">Report</span>
+                  </a>
+                </li>
+                <li class="dash-item dash-hasmenu">
+                  <a href="/admin/Currency/list" class="dash-link">
+                    <span class="dash-micon"
+                      ><i class="fa-solid fa-sliders"></i
+                    ></span>
+                    <span class="dash-mtext text-w">Currency</span>
+                  </a>
+                </li>
+                <li class="dash-item dash-hasmenu">
+                  <a href="/admin/referralCurrency/list" class="dash-link">
+                    <span class="dash-micon"
+                      ><i class="fa-solid fa-sliders"></i
+                    ></span>
+                    <span class="dash-mtext text-w">Referral Currency</span>
+                  </a>
+                </li>
+                <li class="dash-item dash-hasmenu">
+                  <a href="/admin/googleAds/list" class="dash-link">
+                    <span class="dash-micon"
+                      ><i class="fa-solid fa-sliders"></i
+                    ></span>
+                    <span class="dash-mtext text-w">Google ADS</span>
+                  </a>
+                </li>
+                <li class="dash-item dash-hasmenu">
+                  <a href="/admin/trending/list" class="dash-link">
+                    <span class="dash-micon"
+                      ><i class="fa-solid fa-sliders"></i
+                    ></span>
+                    <span class="dash-mtext text-w">Trending Count</span>
+                  </a>
+                </li>
+                <!-- <li class="dash-item dash-hasmenu">
+                  <a href="/admin/like/list" class="dash-link">
+                    <span class="dash-micon"
+                      ><i class="fa-solid fa-sliders"></i
+                    ></span>
+                    <span class="dash-mtext text-w">Like</span>
+                  </a>
+                </li> -->
+                <!-- <li class="dash-item dash-hasmenu">
+                  <a href="/admin/comment/list" class="dash-link">
+                    <span class="dash-micon"
+                      ><i class="fa-solid fa-sliders"></i
+                    ></span>
+                    <span class="dash-mtext text-w">Comment</span>
+                  </a>
+                </li> -->
+                <li class="dash-item dash-hasmenu">
+                  <a href="/admin/support/list" class="dash-link">
+                    <span class="dash-micon"
+                      ><i class="fa-solid fa-sliders"></i
+                    ></span>
+                    <span class="dash-mtext text-w">Support Messages</span>
+                  </a>
+                </li>
+                
+  
+                <li class="dash-item dash-hasmenu" class="dropdown">
+                  <a href="#" class="dash-link menu-toggle nav-link has-dropdown"
+                    ><span class="dash-micon"
+                      ><i class="fa-solid fa-pager"></i> </span
+                    ><span class="dash-mtext">Pages</span></a
+                  >
+                  <ul class="dropdown-menu">
+                    <li class="dropdown-item">
+                      <a href="/admin/aboutus">About Us</a>
+                    </li>
+                    <li class="dropdown-item">
+                      <a href="/admin/contact/list">Contact Us</a>
+                    </li>
+                    <li class="dropdown-item">
+                      <a href="/admin/faq">FAQ</a>
+                    </li>
+                    <li class="dropdown-item">
+                      <a href="/admin/privacypolicy">Privacy Policy</a>
+                    </li>
+                    <li class="dropdown-item">
+                      <a href="/admin/termscondition">Terms Condition</a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="dash-item dash-hasmenu">
+                  <a href="/admin/app/user/list" class="dash-link">
+                    <span class="dash-micon"
+                      ><i class="fa-solid fa-sliders"></i
+                    ></span>
+                    <span class="dash-mtext text-w">User</span>
+                  </a>
+                </li>
+  
+                <!-- 
+                <li class="dash-item">
+                  <a
+                    href="https://demo.rajodiya.com/taskly-saas/orders"
+                    class="dash-link"
+                    ><span class="dash-micon"
+                      ><svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="feather feather-credit-card"
+                      >
+                        <rect
+                          x="1"
+                          y="4"
+                          width="22"
+                          height="16"
+                          rx="2"
+                          ry="2"
+                        ></rect>
+                        <line x1="1" y1="10" x2="23" y2="10"></line></svg></span
+                    ><span class="dash-mtext">Orders</span></a
+                  >
+                </li> -->
+              </ul>
+            </aside>
+          </div>
+        </div>
+        <!-- Main Sidebar End -->
+
+        <!-- Main Content -->
+      </div>
+
+      <div class="settingSidebar">
+        <a href="javascript:void(0)" class="settingPanelToggle">
+          <i class="fa fa-spin fa-cog"></i>
+        </a>
+        <div class="settingSidebar-body ps-container ps-theme-default">
+          <div class="fade show active">
+            <div class="setting-panel-header">Setting Panel</div>
+            <div class="p-15 border-bottom">
+              <h6 class="font-medium m-b-10">Select Layout</h6>
+              <div class="selectgroup layout-color w-50">
+                <label class="selectgroup-item">
+                  <input
+                    type="radio"
+                    name="value"
+                    value="1"
+                    class="selectgroup-input-radio select-layout"
+                    checked
+                  />
+                  <span class="selectgroup-button">Light</span>
+                </label>
+                <label class="selectgroup-item">
+                  <input
+                    type="radio"
+                    name="value"
+                    value="2"
+                    class="selectgroup-input-radio select-layout"
+                  />
+                  <span class="selectgroup-button">Dark</span>
+                </label>
+              </div>
+            </div>
+            <div class="p-15 border-bottom">
+              <h6 class="font-medium m-b-10">Sidebar Color</h6>
+              <div class="selectgroup selectgroup-pills sidebar-color">
+                <label class="selectgroup-item">
+                  <input
+                    type="radio"
+                    name="icon-input"
+                    value="1"
+                    class="selectgroup-input select-sidebar"
+                  />
+                  <span
+                    class="selectgroup-button selectgroup-button-icon"
+                    data-toggle="tooltip"
+                    data-original-title="Light Sidebar"
+                    ><i class="fas fa-sun"></i
+                  ></span>
+                </label>
+                <label class="selectgroup-item">
+                  <input
+                    type="radio"
+                    name="icon-input"
+                    value="2"
+                    class="selectgroup-input select-sidebar"
+                    checked
+                  />
+                  <span
+                    class="selectgroup-button selectgroup-button-icon"
+                    data-toggle="tooltip"
+                    data-original-title="Dark Sidebar"
+                    ><i class="fas fa-moon"></i
+                  ></span>
+                </label>
+              </div>
+            </div>
+            <div class="p-15 border-bottom">
+              <h6 class="font-medium m-b-10">Color Theme</h6>
+              <div class="theme-setting-options">
+                <ul class="choose-theme list-unstyled mb-0">
+                  <li title="white" class="active">
+                    <div class="white"></div>
+                  </li>
+                  <li title="cyan">
+                    <div class="cyan"></div>
+                  </li>
+                  <li title="black">
+                    <div class="black"></div>
+                  </li>
+                  <li title="purple">
+                    <div class="purple"></div>
+                  </li>
+                  <li title="orange">
+                    <div class="orange"></div>
+                  </li>
+                  <li title="green">
+                    <div class="green"></div>
+                  </li>
+                  <li title="red">
+                    <div class="red"></div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="p-15 border-bottom">
+              <div class="theme-setting-options">
+                <label class="m-b-0">
+                  <input
+                    type="checkbox"
+                    name="custom-switch-checkbox"
+                    class="custom-switch-input"
+                    id="mini_sidebar_setting"
+                  />
+                  <span class="custom-switch-indicator"></span>
+                  <span class="control-label p-l-10">Mini Sidebar</span>
+                </label>
+              </div>
+            </div>
+            <div class="p-15 border-bottom">
+              <div class="theme-setting-options">
+                <label class="m-b-0">
+                  <input
+                    type="checkbox"
+                    name="custom-switch-checkbox"
+                    class="custom-switch-input"
+                    id="sticky_header_setting"
+                  />
+                  <span class="custom-switch-indicator"></span>
+                  <span class="control-label p-l-10">Sticky Header</span>
+                </label>
+              </div>
+            </div>
+            <div class="mt-4 mb-4 p-3 align-center rt-sidebar-last-ele">
+              <a
+                href="#"
+                class="btn btn-icon icon-left btn-primary btn-restore-theme"
+              >
+                <i class="fas fa-undo"></i> Restore Default
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

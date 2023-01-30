@@ -1,0 +1,112 @@
+<%- include('partials/header.ejs') %>
+
+<div class="main-content">
+  <section class="section">
+    <div class="section-body">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header" style="height: 70px; background-color: #6fd943">
+              <div class="col-12">
+                <h4 class="float-left">Likes</h4>
+                <div class="head-right-btn">
+                  
+                </div>
+              </div>
+            </div>
+            
+
+            <div class="card-body">
+
+              <!-- video and img content -->
+              <div class="row">
+                <div class="col-12">
+                  <div class="embed-responsive embed-responsive-16by9 ">
+                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" allowfullscreen></iframe>
+                  </div>
+                  <div class="like-img-box">
+                    <img src="/uploads/Posts/1655429901912.jpg"   class=" img-fluid"alt="">
+                  </div>
+                </div>
+                
+              </div>
+
+              <!-- Like and Comment btn Group -->
+              <div class="row img-btn-group">
+                <div class="col-md-6">
+                  <button class="btn btn-lg Like-btn btn-primary ">Like</button>
+                </div>
+                <div class="col-md-6">
+                  <button class="btn btn-lg comment-btn btn-primary">Comment</button>
+                </div>
+              </div>
+
+              <!-- User profile  -->
+              <div class="row">
+                <div class="col-md-6 text-start">
+                  <div class="post-profile">
+                    <img src="/uploads/User/1655684657698.jpg" alt="" class="post-porfile-img" style="width:30px; height:30px; border-radius: 50%;">
+                    
+                    himanshu 
+                  </div>
+                </div>
+                <div class="col-md-6 text-end">
+                  21-06-22
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+</div>
+
+
+<div class="main-content">
+  <section class="section">
+    <div class="section-body">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12">
+            
+            </div>
+        </div>
+        </div>    
+      
+    </div>
+  </section>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<%- include('partials/footer.ejs') %>
+
+<%
+function convertTimeStampToDate(date){
+   date = Number(date)
+      var d = new Date(date),
+         month = '' + (d.getMonth() + 1),
+         day = '' + d.getDate(),
+         year = d.getFullYear();
+
+   if (month.length < 2)
+   month = '0' + month;
+   if (day.length < 2)
+   day = '0' + day;
+   var date = new Date();
+   date.toLocaleDateString();
+
+   return [day, month, year].join('-');
+}
+%>

@@ -1,0 +1,256 @@
+<%- include('partials/header.ejs') %>
+
+<div class="main-content">
+  <section class="section">
+    <div class="section-body">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div
+              class="card-header"
+              style="height: 70px; background-color: #6fd943"
+            >
+              <div class="col-12">
+                <h4 class="float-left">Currency</h4>
+                <div class="head-right-btn">
+                  <button
+                    class="btn btn-sm btn-secondary float-right card-text-btn"
+                    type="submit"
+                    data-bs-toggle="modal"
+                    data-bs-target="#myModal"
+                  >
+                    <a
+                      href="#"
+                      data-ajax-popup="true"
+                      data-size="md"
+                      data-title="Invite New User"
+                      data-toggle="tooltip"
+                      title=""
+                      data-bs-original-title="Add Blog"
+                    >
+                      Add
+                    </a>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-body">
+              <div class="row">
+                <div class="col-12">
+                  <div class="table-responsive p-2">
+                    <table class="table table-bordered table-md text-center">
+                      <thead>
+                        <tr>
+                          <th>Currency</th>
+                          <th>Date </th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      
+                      <tbody>
+                        <% for( let i = 0; i < currency.length; i++ ) { %>
+                       <td>
+                        <%= currency[i].currency %>
+                       </td>
+                       <td><%= convertTimeStampToDate(currency[i].created_at) %></td>
+                       <td>
+                        <i
+                          class="btn btn-danger btn-lg fas fa-trash-alt"
+                          onclick="deletecurrency('<%= currency[i]._id %>');"
+                        ></i>
+                      </td>
+                      </tbody>
+                        <% } %>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="modal" id="myModal">
+    <!-- modal  -->
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add Currrency</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="body">
+          <div class="modal-body">
+            <form
+              id="addforms"
+              class="form-group font-weight-bold showcursor: true"
+            >
+              <!-- <div class="mb-3 d-grid gap-2 col-12 mx-auto">
+                <label for="image" class="form-label">Image</label>
+                <input
+                  type="file"
+                  class="form-control"
+                  id="image"
+                  name="image"
+                />
+              </div> -->
+              <!-- <div class="mb-3 d-grid gap-2 col-12 mx-auto">
+                <label for="title" class="form-label">Heading</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="heading"
+                  name="heading"
+                  placeholder="Heading"
+                />
+              </div> -->
+              <div class="mb-3 d-grid gap-2 col-12 mx-auto">
+                <label for="currency" class="form-label">Currency</label>
+                <input
+                  id="currency"
+                  name="currency"
+                  class="form-control"
+                  placeholder="currency"
+                />
+              </div>
+
+              <button type="submit" class="btn btn-info mt-3 pull-right">
+                Save
+              </button>
+            </form>
+          </div>
+          <div class="col-md-12 modal-footer"></div>
+        </div>
+      </div>
+    </div>
+    <!-- modal  -->
+  </div>
+</div>
+
+<%- include ('partials/footer.ejs')%>
+<%
+function convertTimeStampToDate(date){
+    date = Number(date)
+       var d = new Date(date),
+          month = '' + (d.getMonth() + 1),
+          day = '' + d.getDate(),
+          year = d.getFullYear();
+ 
+    if (month.length < 2)
+    month = '0' + month;
+    if (day.length < 2)
+    day = '0' + day;
+    var date = new Date();
+    date.toLocaleDateString();
+ 
+    return [day, month, year].join('-');
+ }
+ %>
+
+<!-- <script>
+    function getFormData($form) {
+    var unindexed_array = $form.serializeArray();
+    var indexed_array = {};
+
+    $.map(unindexed_array, function (n, i) {
+      indexed_array[n["name"]] = n["value"];
+    });
+    return JSON.stringify(indexed_array);
+  }
+  var addform = $("#addforms");
+
+  addform.on("submit", addslidersubmitHandler);
+
+  function addslidersubmitHandler(e) {
+    e.preventDefault();
+
+    // PREPARE FORM DATA
+    var formData = new FormData(addform[0]);
+    console.log(formData);
+    // // DO POST
+    $.ajax({
+      type: "POST",
+      enctype: "multipart/form-data",
+      cache: false,
+      processData: false,
+      contentType: false,
+      url: "/admin/currency/addcurrency",
+      data: formData,
+    })
+      .done((res) => {
+        console.log("Blog add successfully");
+        // window.location.reload();
+        // table.draw();
+      })
+      .fail(function (xhr, status, error) {
+        console.log(xhr.responseText);
+      });
+  }
+</script> -->
+
+<script>
+    function getFormData($form) {
+      var unindexed_array = $form.serializeArray();
+      var indexed_array = {};
+  
+      $.map(unindexed_array, function (n, i) {
+        indexed_array[n["name"]] = n["value"];
+      });
+      return JSON.stringify(indexed_array);
+    }
+    var addform = $("#addforms");
+    addform.on("submit", addaboutUssubmitHandler);
+  
+    function addaboutUssubmitHandler(e) {
+      e.preventDefault();
+  
+      var formData = getFormData(addform);
+      console.log(formData)
+  
+      // DO POST
+      $.ajax({
+          type: "POST",
+          contentType: "application/json",
+          url: "/admin/currency/addcurrency",
+          data: formData,
+        })
+        setTimeout(function (res) {
+            console.log("Form Successfully")
+            window.location.reload(1);
+          }, 1000)
+  
+          .fail(function (xhr, status, error) {
+            console.log(xhr.responseText)
+          });
+    }
+  </script>
+
+<script>
+  function deletecurrency(id) {
+    if (confirm("Do you really want to delete this record")) {
+      // DO POST
+      $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: "/admin/currency/deletecurrency",
+        data: JSON.stringify({
+          id: id,
+        }),
+      })
+        .done((res) => {
+          console.log("Blog Deleted successfully");
+          window.location.reload();
+        })
+        .fail(function (xhr, status, error) {
+          console.log(xhr.responseText);
+        });
+    }
+  }
+</script>

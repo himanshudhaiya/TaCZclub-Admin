@@ -1,0 +1,285 @@
+<%- include('partials/header.ejs') %>
+
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+
+<div class="main-content">
+  <section class="section">
+    <div class="section-body">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header" style="height: 70px; background-color: #6fd943">
+              <div class="col-12">
+                <h4 class="float-left">Text</h4>
+                <div class="head-right-btn">
+                  <button class="btn btn-sm btn-secondary float-right card-text-btn" type="submit"
+                    data-bs-toggle="modal" data-bs-target="#myModal">
+                    <a href="#" data-ajax-popup="true" data-size="md" data-title="Invite New User" data-toggle="tooltip"
+                      title="" data-bs-original-title="Add Text">
+                      Add
+                    </a>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-body">
+              <div class="row">
+                <div class="col-12">
+                  <div class="table-responsive p-2">
+                    <table class="table table-bordered table-md">
+                      <thead class="text-center">
+                        <tr>
+                          <th>text</th>
+                          <th>Category</th>
+                          <th>Created</th>
+                          <th>Status</th>
+                          <th>Action</th>
+
+                        </tr>
+                      </thead>
+                      <tbody class="text-center">
+                        <% if(!text[0]) { %>
+                        <tr>
+                          <td colspan="100%">No text</td>
+                        </tr>
+                        <% } else {%> <%text.forEach(function(text){%>
+                        <tr>
+
+                          <td><%= text.text%></td>
+                          <td><%= text.category_Id.name  %></td>
+                          <td>
+                            <%=convertTimeStampToDate(text.created_at)%>
+                          </td>
+                          <td>
+                            <i class="material-icons <%- text.approved ? 'bg-success' : 'bg-danger' %> text-white" data-toggle="modal"  data-model="<%= JSON.stringify(text) %>" id="accept_btn" style="cursor : pointer">
+                              <%- text.approved ? 'done' : 'close' %></i>
+                          </td>
+
+
+                          
+
+                          <td>
+                           
+
+                            <i class="btn btn-danger btn-lg fas fa-trash-alt"
+                              onclick="deletecategory('<%= text._id %>');"></i>
+                          </td>
+
+
+                        </tr>
+                        <% }); %> <% } %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- add model -->
+  <div class="modal" id="myModal">
+    <!-- modal  -->
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add Text</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="body">
+          <div class="modal-body">
+            <form id="addtext" class="mx-5">
+              <div class="mb-3 d-grid gap-2 col-12 mx-auto">
+                <label for="title" class="form-label ">Category</label>
+
+                <select name="category_Id" id="select" class="form-control">
+                  <option value="">select Category</option>
+
+                  <% category.forEach(category => { %>
+                  <option value="<%= category._id %>"><%= category.name %> </option>
+                  <% }) %>
+                </select>
+              </div>
+              <div class="mb-3 d-grid gap-2 col-12 mx-auto">
+                <label for="title" class="form-label">Text</label>
+                <input type="text" class="form-control" id="text" name="text" placeholder="Text" />
+              </div>
+              <div class="mb-3 d-grid gap-2 col-12 mx-auto">
+                <label for="title" class="form-label ">Status</label>
+                <select name="status" id="" class="form-control">
+                  <option value="show">Show</option>
+                  <option value="Hide">Hide</option>
+                </select>
+              </div>
+              <button type="submit" class="btn mt-3 pull-right" style="background-color: #6fd943; color: #fff">
+                Add
+              </button>
+            </form>
+          </div>
+          <div class="col-md-12 modal-footer"></div>
+        </div>
+      </div>
+    </div>
+    <!-- modal  -->
+  </div>
+  <!-- add model -->
+
+  <!-- edit model -->
+  <div class="modal fade" id="action">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form id="actionForm" class="mx-5">
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Text</h4>
+            <button type="button" class="close" data-dismiss="modal">
+              &times;
+            </button>
+          </div>
+  
+          <!-- Modal body -->
+          <div class="modal-body">
+            <div class="mb-3">
+              <input name="approved" type="checkbox" id="approved" data-width="100%" data-toggle="toggle"
+                data-on="approved" data-off="disapproved" data-onstyle="success" data-offstyle="danger" />
+            </div>
+            <input name="id" type="hidden" id="actionid" name="actionid" />
+          </div>
+  
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+              close
+            </button>
+            <button type="submit" class="btn btn-success">save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- edit model -->
+</div>
+
+<%- include('partials/footer.ejs') %>
+
+<%
+function convertTimeStampToDate(date){
+   date = Number(date)
+      var d = new Date(date),
+         month = '' + (d.getMonth() + 1),
+         day = '' + d.getDate(),
+         year = d.getFullYear();
+
+   if (month.length < 2)
+   month = '0' + month;
+   if (day.length < 2)
+   day = '0' + day;
+   var date = new Date();
+   date.toLocaleDateString();
+
+   return [day, month, year].join('-');
+}
+%>
+
+<script>
+  function getFormData($form) {
+    var unindexed_array = $form.serializeArray();
+    var indexed_array = {};
+
+    $.map(unindexed_array, function (n, i) {
+      indexed_array[n["name"]] = n["value"];
+    });
+
+    return indexed_array;
+  }
+
+  const form = $("#addtext");
+
+  form.on("submit", submitHandler);
+
+  function submitHandler(e) {
+    e.preventDefault();
+
+    var formData = getFormData($("#addtext"));
+    console.log(formData);
+
+    // DO POST
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: "/admin/text/add",
+        data: JSON.stringify(formData),
+      })
+      .done((res) => {
+        console.log("Text Us add successfully");
+        window.location.reload();
+      })
+      .fail(function (xhr, status, error) {
+        console.log(xhr.responseText);
+      });
+  }
+
+</script>
+
+<script>
+  $(document).on("click", "#accept_btn", function (e) {
+      let getData = $(e.target).attr('data-model');
+      let finalData = JSON.parse(getData)
+      $('#action').modal('show')
+      var data = finalData
+      // console.log(data)
+
+      $("#actionid").val(data._id);
+
+      approved ?  $("#approved").bootstrapToggle("on") : $("#approved").bootstrapToggle("off");
+      
+  })
+
+</script>
+
+
+
+
+<script>
+  function getFormData($form) {
+     var unindexed_array = $form.serializeArray();
+     var indexed_array = {};
+
+     $.map(unindexed_array, function (n, i) {
+         indexed_array[n["name"]] = n["value"];
+     });
+
+     return indexed_array;
+ }
+  var actionForm = $("#actionForm");
+  actionForm.on("submit", addslidersubmitHandler);
+
+ function addslidersubmitHandler(e) {
+     e.preventDefault();
+
+     // PREPARE FORM DATA
+     var formData = getFormData(actionForm);
+
+     formData.approved = $("#approved").is(":checked");
+
+     console.log(formData);
+     // // DO POST
+     $.ajax({
+             type: "POST",
+             contentType: "application/json",
+             url: "/admin/text/edit",
+             data: JSON.stringify(formData),
+         })
+         .done((res) => {
+             console.log("successfully");
+             window.location.reload();
+             // table.draw();
+         })
+         .fail(function (xhr, status, error) {
+             console.log(xhr.responseText);
+         });
+ }
+</script>

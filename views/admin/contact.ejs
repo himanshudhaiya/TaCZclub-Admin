@@ -1,0 +1,152 @@
+<%- include('partials/header.ejs') %>
+<!-- Main Content -->
+<div class="main-content">
+  <section class="section">
+    <div class="section-body">
+      <div class="row mt-1">
+        <div class="col-12">
+          <div class="card">
+            <div
+              class="card-header border"
+              style="height: 70px; background-color: #6fd943"
+            >
+              <h4 class="float-left">Contact Us</h4>
+            </div>
+            <div class="card-body">
+              <div class="clearfix mb-3"></div>
+              <div class="row">
+                <div class="mb-3">
+                  <div class="col-12 col-lg-12">
+                    <form
+                      id="addform"
+                      class="form-group font-weight-bold showcursor: true"
+                    >
+                      <div class="row">
+                        <div class="mb-3 col-lg-6">
+                          <label for="title" class="form-label"
+                            >Contact Name</label
+                          >
+                          <input
+                            type="text"
+                            name="contact_name"
+                            id="contact_name"
+                            class="form-control"
+                            placeholder="Enter Contact Name"
+                          />
+                        </div>
+
+                        <div class="mb-3 col-lg-6">
+                          <label for="title" class="form-label">Email</label>
+                          <input
+                            type="text"
+                            name="email"
+                            id="email"
+                            class="form-control"
+                            placeholder="Enter Email"
+                          />
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="mb-3 col-lg-6">
+                          <label for="title" class="form-label">Phone</label>
+                          <input
+                            type="text"
+                            name="phone"
+                            id="phone"
+                            class="form-control"
+                            placeholder="Enter Phone"
+                          />
+                        </div>
+                        <div class="mb-3 col-lg-6"></div>
+                      </div>
+
+                      <div class="row">
+                        <div class="mb-2 col-12">
+                          <label for="title" class="form-label">Message</label>
+                          <textarea name="message" id="summernote"> </textarea>
+                        </div>
+                      </div>
+
+                      <button
+                        type="submit"
+                        class="btn mt-3"
+                        style="background-color: #6fd943"
+                      >
+                        Save
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<%- include('partials/footer.ejs') %>
+
+<script>
+  function getFormData($form) {
+    var unindexed_array = $form.serializeArray();
+    var indexed_array = {};
+
+    $.map(unindexed_array, function (n, i) {
+      indexed_array[n["name"]] = n["value"];
+    });
+
+    return indexed_array;
+  }
+
+  const form = $("#addform");
+
+  form.on("submit", submitHandler);
+
+  function submitHandler(e) {
+    e.preventDefault();
+
+    var formData = getFormData($("#addform"));
+
+    // DO POST
+    $.ajax({
+      type: "POST",
+      contentType: "application/json",
+      url: "/admin/contact/add",
+      data: JSON.stringify(formData),
+    })
+
+      .done((res) => {
+        console.log("Contact add successfully");
+        window.location.reload();
+      })
+      .fail(function (xhr, status, error) {
+        console.log(xhr.responseText);
+      });
+  }
+</script>
+
+<script>
+  function deleteCategory(id) {
+    if (confirm("Do you really want to delete this record")) {
+      // DO POST
+      $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: "/admin/contact/delete",
+        data: JSON.stringify({
+          id: id,
+        }),
+      })
+        .done((res) => {
+          console.log("Contact Deleted successfully");
+          window.location.reload();
+        })
+        .fail(function (xhr, status, error) {
+          console.log(xhr.responseText);
+        });
+    }
+  }
+</script>

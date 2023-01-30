@@ -1,0 +1,260 @@
+<%- include('partials/header.ejs') %>
+<!-- content start -->
+<div class="main-content">
+  <section class="section">
+    <div class="section-body">
+      <!--  Wake Up List Start-->
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header" style="background-color: #6fd943">
+              <div class="col-12 row card-header-box">
+                <div class="col-md-6">
+                  <h4 class="float-left">Users</h4>
+                  <br />
+                  <nav
+                    aria-label="breadcrumb"
+                    class="header-breadcumb"
+                    style="background-color: transpart"
+                  >
+                    <ol class="breadcrumb">
+                      <li class="breadcrumb-item"><a href="#">Home</a></li>
+                      <li class="breadcrumb-item active" aria-current="page">
+                        users
+                      </li>
+                    </ol>
+                  </nav>
+                </div>
+                <div class="col-md-6 text-right cta-btn">
+                  <button
+                    class="btn btn-sm btn-secondary"
+                    type="submit"
+                    data-bs-toggle="modal"
+                    data-bs-target="#myModal"
+                  >
+                    <a
+                      href="#"
+                      data-ajax-popup="true"
+                      data-size="md"
+                      data-title="Invite New User"
+                      data-toggle="tooltip"
+                      title=""
+                      data-bs-original-title="Invite New User"
+                    >
+                      <i class="fa-solid fa-plus"></i>
+                    </a>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="card-body p-0">
+              <!--  -->
+              <div class="row m-2">
+                <div class="col-sm-4">
+                  <label
+                    >Show
+                    <select
+                      name="exdatatable_length"
+                      aria-controls="exdatatable"
+                      class="p-2"
+                    >
+                      <option value="10">10</option>
+                      <option value="25">25</option>
+                      <option value="50">50</option>
+                      <option value="-1">All</option>
+                    </select>
+                    entries
+                  </label>
+                </div>
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4">
+                  <div class="card-header-form">
+                    <form>
+                      <div class="input-group">
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="Search"
+                        />
+                        <div class="input-group-btn">
+                          <button class="btn">
+                            <i class="fas fa-search"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <!--  -->
+
+              <div class="row m-2">
+                <div class="col-12">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <tr>
+                        <td>Task</td>
+                        <td>Project</td>
+                        <td>Milestone</td>
+                        <td>Due Date</td>
+                        <td>Assigned to</td>
+                        <td>Status</td>
+                        <td>Priority</td>
+                        <td>Action</td>
+                      </tr>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <a href="" class="text-body"
+                              >Define users and workflow</a
+                            >
+                          </td>
+
+                          <td class="align-middle">UI development</td>
+                          <td>Mile 1</td>
+                          <td><span class="text-danger">2022-01-10</span></td>
+                          <td class="center">
+                            <a
+                              href="#"
+                              class="btn btn-secondary btn-sm p-2"
+                              data-toggle="tooltip"
+                              data-placement="left"
+                              title=""
+                              data-original-title="Update"
+                              >Peter
+                            </a>
+
+                            <a
+                              href="#"
+                              class="btn btn-secondary btn-sm p-2"
+                              data-toggle="tooltip"
+                              data-placement="right"
+                              title=""
+                              data-original-title="Delete "
+                              >Jeff</a
+                            >
+                          </td>
+                          <td class="center">
+                            <input
+                              name="url"
+                              type="hidden"
+                              id="url_327"
+                              value="#"
+                            />
+                            <a
+                              href="#"
+                              class="btn btn-secondary btn-sm p-2"
+                              data-toggle="tooltip"
+                              data-placement="left"
+                              title=""
+                              data-original-title="Update"
+                              >In Progress
+                            </a>
+                          </td>
+                          <td class="center">
+                            <input
+                              name="url"
+                              type="hidden"
+                              id="url_327"
+                              value="#"
+                            />
+                            <a
+                              href="#"
+                              class="btn btn-secondary btn-sm p-2"
+                              data-toggle="tooltip"
+                              data-placement="left"
+                              title=""
+                              data-original-title="Update"
+                              >Hight
+                            </a>
+                          </td>
+                          <td class="center">
+                            <input
+                              name="url"
+                              type="hidden"
+                              id="url_327"
+                              value="#"
+                            />
+                            <a
+                              href="#"
+                              class="btn theme-btn-bg btn-sm p-2"
+                              data-toggle="tooltip"
+                              data-placement="left"
+                              title=""
+                              data-original-title="Update"
+                              ><i class="fas fa-edit"></i>
+                            </a>
+
+                            <a
+                              href="#"
+                              class="btn theme-btn-bg btn-sm p-2"
+                              data-toggle="tooltip"
+                              data-placement="right"
+                              title=""
+                              data-original-title="Delete "
+                              ><i class="fas fa-trash-alt"></i
+                            ></a>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Customer list Ends -->
+    </div>
+  </section>
+
+  <!-- Modal Popup Start-->
+
+  <div class="modal" id="myModal">
+    <!-- modal  -->
+    <div class="modal-dialog modal-md" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Invite New User</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="body">
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-12 col-12 text-center">
+                <span class="invite-warning"></span>
+              </div>
+              <div class="col-md-12 col-12 form-group invite_user_div">
+                <label for="username" class="col-form-label">Name</label>
+                <input
+                  class="form-control"
+                  placeholder="Please enter name"
+                  name="username"
+                  type="text"
+                  id="username"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 modal-footer">
+            <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+              Close
+            </button>
+            <button type="button" class="btn btn-primary check-invite-members">
+              Invite
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- modal  -->
+  </div>
+</div>
+
+<%- include ('partials/footer.ejs') %>

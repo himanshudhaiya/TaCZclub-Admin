@@ -1,0 +1,210 @@
+<%- include('partials/header.ejs') %>
+
+<div class="main-content">
+  <section class="section">
+    <div class="section-body">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div
+              class="card-header"
+              style="height: 70px; background-color: #6fd943"
+            >
+              <div class="col-12">
+                <h4 class="float-left">Blog</h4>
+                <div class="head-right-btn">
+                  <button
+                    class="btn btn-sm btn-secondary float-right card-text-btn"
+                    type="submit"
+                    data-bs-toggle="modal"
+                    data-bs-target="#myModal"
+                  >
+                    <a
+                      href="#"
+                      data-ajax-popup="true"
+                      data-size="md"
+                      data-title="Invite New User"
+                      data-toggle="tooltip"
+                      title=""
+                      data-bs-original-title="Add Blog"
+                    >
+                      Add
+                    </a>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-body">
+              <div class="row">
+                <div class="col-12">
+                  <div class="table-responsive p-2">
+                    <table class="table table-bordered table-md">
+                      <thead>
+                        <tr>
+                          <th>Image</th>
+                          <th>Heading</th>
+                          <th>Descriptoin</th>
+                          <th>Date & time</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% if(!blog[0]){ %>
+                        <tr>
+                          <td colspan="5">No Blog Found</td>
+                        </tr>
+                        <% } else { for(var i=0; i< blog.length; i++) { %>
+                        <tr>
+                          <td>
+                            <img
+                              src="../../uploads/blog/<%- blog[i].image %>"
+                              alt="<%- blog[i].image %>"
+                              class="rounded"
+                              width="70"
+                              data-toggle="title"
+                            />
+                          </td>
+                          <td><%- blog[i].heading %></td>
+                          <td><%- blog[i].description %></td>
+                          <td><%- blog[i].date_time %></td>
+
+                          <td>
+                            <i
+                              class="btn btn-danger btn-lg fas fa-trash-alt"
+                              onclick="deleteBlog('<%- blog[i].id %>')"
+                            >
+                            </i>
+                          </td>
+                        </tr>
+                        <% } } %>
+                        <tr></tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="modal" id="myModal">
+    <!-- modal  -->
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add Blog</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="body">
+          <div class="modal-body">
+            <form
+              id="addform"
+              class="form-group font-weight-bold showcursor: true"
+            >
+              <div class="mb-3 d-grid gap-2 col-12 mx-auto">
+                <label for="image" class="form-label">Image</label>
+                <input
+                  type="file"
+                  class="form-control"
+                  id="image"
+                  name="image"
+                />
+              </div>
+              <div class="mb-3 d-grid gap-2 col-12 mx-auto">
+                <label for="title" class="form-label">Heading</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="heading"
+                  name="heading"
+                  placeholder="Heading"
+                />
+              </div>
+              <div class="mb-3 d-grid gap-2 col-12 mx-auto">
+                <label for="description" class="form-label">Decription</label>
+                <input
+                  id="description"
+                  name="description"
+                  class="form-control"
+                  placeholder="Decription"
+                />
+              </div>
+
+              <button type="submit" class="btn btn-info mt-3 pull-right">
+                Save
+              </button>
+            </form>
+          </div>
+          <div class="col-md-12 modal-footer"></div>
+        </div>
+      </div>
+    </div>
+    <!-- modal  -->
+  </div>
+</div>
+
+<%- include ('partials/footer.ejs')%>
+
+<script>
+  var addform = $("#addform");
+
+  addform.on("submit", addslidersubmitHandler);
+
+  function addslidersubmitHandler(e) {
+    e.preventDefault();
+
+    // PREPARE FORM DATA
+    var formData = new FormData(addform[0]);
+    console.log(formData);
+    // // DO POST
+    $.ajax({
+      type: "POST",
+      enctype: "multipart/form-data",
+      cache: false,
+      processData: false,
+      contentType: false,
+      url: "/admin/blog/add",
+      data: formData,
+    })
+      .done((res) => {
+        console.log("Blog add successfully");
+        window.location.reload();
+        // table.draw();
+      })
+      .fail(function (xhr, status, error) {
+        console.log(xhr.responseText);
+      });
+  }
+</script>
+
+<script>
+  function deleteblog(id) {
+    if (confirm("Do you really want to delete this record")) {
+      // DO POST
+      $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: "/admin/blog/delete",
+        data: JSON.stringify({
+          id: id,
+        }),
+      })
+        .done((res) => {
+          console.log("Blog Deleted successfully");
+          window.location.reload();
+        })
+        .fail(function (xhr, status, error) {
+          console.log(xhr.responseText);
+        });
+    }
+  }
+</script>

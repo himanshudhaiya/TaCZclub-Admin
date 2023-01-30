@@ -1,0 +1,321 @@
+<%- include('partials/header.ejs') %>
+<div class="main-content">
+  <section class="section">
+    <div class="section-body">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div
+              class="card-header"
+              style="height: 70px; background-color: #6fd943"
+            >
+              <div class="col-12">
+                <h4 class="float-left">Category</h4>
+                <div class="head-right-btn">
+                  <button
+                    class="btn btn-sm btn-secondary float-right card-text-btn"
+                    type="submit"
+                    data-bs-toggle="modal"
+                    data-bs-target="#myModal"
+                  >
+                    <a
+                      href="#"
+                      data-ajax-popup="true"
+                      data-size="md"
+                      data-title="Invite New User"
+                      data-toggle="tooltip"
+                      title=""
+                      data-bs-original-title="Add Category"
+                    >
+                      Add
+                    </a>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-body">
+              <div class="row">
+                <div class="col-12">
+                  <div class="table-responsive p-2">
+                    <table class="table table-bordered table-md">
+                      <thead class="text-center">
+                        <tr>
+                          <th>Icon</th>
+                          <th>Name</th>
+                          <th>Last Update</th>
+                          <th>Created</th>
+                          <th>Action</th>
+                        
+                        </tr>
+                      </thead>
+                      <tbody class="text-center">
+                        <% if(!categories[0]) { %>
+                        <tr>
+                          <td colspan="100%">No Categories</td>
+                        </tr>
+                        <% } else {%> <%categories.forEach(function(categories){%>
+                        <tr>
+                          <td>
+                            <img
+                              src="/uploads/category/<%= categories.icon %>"
+                              alt="categories"
+                              height="50px"
+                              width="50px"
+                            />
+                          </td>
+                          <td><%= categories.name %></td>
+                          <td>
+                            <%=convertTimeStampToDate(categories.last_update_time)%>
+                          </td>
+                          <td>
+                            <%= convertTimeStampToDate(categories.created_at) %>
+                          </td>
+
+                          <td>
+                            <a
+                              data-toggle="tooltip"
+                              data-bs-original-title="Add Subcategory"
+                              href="/admin/subcategories/list?id=<%= categories._id %>"
+                              ><i
+                                class="btn btn-primary btn-md fas fa-plus"
+                              ></i
+                            ></a>
+                            <i
+                              class="btn btn-info btn-md fas fa-edit"
+                              data-bs-toggle="modal"
+                              data-bs-target="#editmodal"
+                              onclick="editformupdate('<%= categories._id %>', '<%= categories.name %>');"
+                            ></i>
+                            <i
+                              class="btn btn-danger btn-md fas fa-trash-alt"
+                              onclick="deletecategory('<%= categories._id %>');"
+                            ></i>
+                          </td>
+
+                         
+                        </tr>
+                        <% }); %> <% } %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- add model -->
+  <div class="modal" id="myModal">
+    <!-- modal  -->
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add Category</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="body">
+          <div class="modal-body">
+            <form id="addcategory" class="mx-5">
+              <label for="icon" class="form-label">Image</label>
+              <div class="mb-3 d-grid gap-2 col-12 mx-auto">
+                <input
+                  type="file"
+                  class="form-control"
+                  id="icon"
+                  name="icon"
+                  placeholder="Category"
+                />
+              </div>
+              <div class="mb-3 d-grid gap-2 col-12 mx-auto">
+                <label for="title" class="form-label">Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="name"
+                  name="name"
+                  placeholder="Category"
+                />
+              </div>
+              <button
+                        type="submit"
+                        class="btn mt-3 pull-right"
+                        style="background-color: #6fd943; color: #fff"
+                      >
+                        Add
+                      </button>
+            </form>
+          </div>
+          <div class="col-md-12 modal-footer"></div>
+        </div>
+      </div>
+    </div>
+    <!-- modal  -->
+  </div>
+  <!-- add model -->
+
+  <!-- edit model -->
+  <div class="modal" id="editmodal">
+    <!-- modal  -->
+    <div class="modal-dialog modal-lg" style="margin-top: 100px;" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit Category</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="body">
+          <div class="modal-body">
+            <form id="editcategory" class="mx-5">
+              <input type="hidden" id="editid" name="editid" />
+              <div class="mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="editname"
+                  name="editname"
+                  placeholder="Category"
+                />
+              </div>
+              <button type="submit" class="btn btn-info mt-3 pull-right">
+                edit
+              </button>
+            </form>
+          </div>
+          <div class="col-md-12 modal-footer"></div>
+        </div>
+      </div>
+    </div>
+    <!-- modal  -->
+  </div>
+  <!-- edit model -->
+</div>
+
+<%- include('partials/footer.ejs') %>
+
+<%
+function convertTimeStampToDate(date){
+   date = Number(date)
+      var d = new Date(date),
+         month = '' + (d.getMonth() + 1),
+         day = '' + d.getDate(),
+         year = d.getFullYear();
+
+         hour = '' + d.getHours(),
+          minute = '' + d.getMinutes();
+         
+   if (month.length < 2)
+   month = '0' + month;
+   if (day.length < 2)
+   day = '0' + day;
+    if (hour.length < 2)
+    hour = '0' + hour;
+    if (minute.length < 2)
+    minute = '0' + minute;
+
+    return [day, month, year].join('-') + ' ' + [hour, minute].join(':');
+    
+}
+%>
+
+<script>
+  var addform = $("#addcategory");
+
+  addform.on("submit", submitHandler);
+
+  function submitHandler(e) {
+    e.preventDefault();
+
+    var formData = new FormData(addform[0]);
+    // DO POST
+    $.ajax({
+      type: "POST",
+      enctype: "multipart/form-data",
+      processData: false,
+      contentType: false,
+      url: "/admin/category/add",
+      data: formData,
+    })
+      .done((res) => {
+        console.log(res);
+        window.location.reload();
+      })
+      .fail(function (xhr, status, error) {
+        console.log(xhr.responseText);
+      });
+  }
+
+  var editform = $("#editcategory");
+
+  editform.on("submit", editnotecategoriesubmitHandler);
+
+  function editnotecategoriesubmitHandler(e) {
+    e.preventDefault();
+    // vaidation
+    if ($("#editname").val() == "") {
+      alert("Category is required");
+      return false;
+    } else if ($("#editname").val().length > 50) {
+      alert("Category max length is 50 charactor");
+      return false;
+    }
+
+    // DO POST
+    $.ajax({
+      type: "POST",
+      contentType: "application/json",
+      url: "/admin/category/edit",
+      data: JSON.stringify({
+        id: $("#editid").val(),
+        name: $("#editname").val(),
+      }),
+    })
+      .done((res) => {
+        console.log(res);
+        window.location.reload();
+      })
+      .fail(function (xhr, status, error) {
+        console.log(xhr.responseText);
+      });
+  }
+
+  function editformupdate(id, name) {
+    $("#editid").val(id);
+    $("#editname").val(name);
+  }
+
+  function deletecategory(id) {
+    if (confirm("Do you really want to delete this category")) {
+      // DO POST
+      $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: "/admin/category/delete",
+        data: JSON.stringify({
+          id: id,
+        }),
+      })
+        .done((res) => {
+          console.log(res);
+          window.location.reload();
+        })
+        .fail(function (xhr, status, error) {
+          console.log(xhr.responseText);
+        });
+    }
+  }
+</script>
+
+

@@ -1,0 +1,98 @@
+<%- include('partials/header.ejs') %>
+<div class="main-content">
+  <section class="section">
+    <div class="section-body">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div
+              class="card-header"
+              style="height: 70px; background-color: #6fd943"
+            >
+              <div class="col-12">
+                <h4 class="float-left">Support Messages</h4>
+                <div class="head-right-btn">
+                </div>
+              </div>
+            </div>
+
+            <div class="card-body">
+              <div class="row">
+                <div class="col-12">
+                  <div class="table-responsive p-2">
+                    <table class="table table-bordered table-md">
+                      <thead class="text-center">
+                        <tr>
+                          <th>User Name</th>
+                          <th>Email</th>
+                          <th>Message</th>
+                          <th>Mobile Number</th>
+                          <th>Created</th>
+                          <th>Action</th>
+                          <!-- <th>update</th> -->
+                        </tr>
+                      </thead>
+                      <tbody class="text-center">
+                        <% if(!support_messages[0]) { %>
+                        <tr>
+                          <td colspan="100%">No like</td>
+                        </tr>
+                        <% } else {%> <%support_messages.forEach(function(support_messages){%>
+                            
+                      
+                            <td><%= support_messages.user_id.name %></td>
+                            <td><%= support_messages.email %> </td>
+                            <td><%= support_messages.message %> </td>
+                            <td><%= support_messages.mobile_number %> </td>
+                        
+                          <td>
+                            <%= convertTimeStampToDate(support_messages.created_at) %>
+                          </td>
+
+                          <td>
+                            <button class="btn btn-secondary" ><a href="/admin/reply/list/<%= support_messages.id %> " style="color: white;">Reply</a></button>
+                          </td>
+
+                          <!-- <td>
+                            <%=convertTimeStampToDate(support_messages.last_update_time)%>
+                          </td> -->
+                          
+
+                         
+                        </tr>
+                        <% }); %> <% } %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+ 
+  
+</div>
+
+<%- include('partials/footer.ejs') %>
+
+<%
+function convertTimeStampToDate(date){
+   date = Number(date)
+      var d = new Date(date),
+         month = '' + (d.getMonth() + 1),
+         day = '' + d.getDate(),
+         year = d.getFullYear();
+
+   if (month.length < 2)
+   month = '0' + month;
+   if (day.length < 2)
+   day = '0' + day;
+   var date = new Date();
+   date.toLocaleDateString();
+
+   return [day, month, year].join('-');
+}
+%>

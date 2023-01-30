@@ -1,0 +1,394 @@
+<%- include('partials/header.ejs') %>
+
+<div class="main-content">
+  <section class="section">
+    <div class="section-body">
+      <div class="row">
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+          <div class="card card-stats statistic-box mb-4">
+            <div
+              class="d-card-header d-card-header-dashboard card-header-warning card-header-icon position-relative border-0 text-center px-3 py-0"
+            >
+              <p
+                class="card-category text-uppercase fs-10 font-weight-bold text-muted"
+              ></p>
+              <div
+                class="card-icon d-flex align-items-center justify-content-center"
+              >
+                <i class="fas fa-calendar-check"></i>
+              </div>
+              Today Booking
+              <p></p>
+            </div>
+            <div class="d-card-footer p-3 text-center">
+              <div class="stats">
+                <h3 class="card-title fs-18 font-weight-bold">0</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+          <div class="card card-stats statistic-box mb-4">
+            <div
+              class="d-card-header d-card-header-dashboard card-header-warning card-header-icon position-relative border-0 text-center px-3 py-0"
+            >
+              <p
+                class="card-category text-uppercase fs-10 font-weight-bold text-muted"
+              ></p>
+              <div
+                class="card-icon d-flex align-items-center justify-content-center"
+              >
+                <i class="fas fa-dollar-sign"></i>
+              </div>
+              Total Amount
+              <p></p>
+            </div>
+            <div class="d-card-footer p-3 text-center">
+              <div class="stats">
+                <h3 class="card-title fs-18 font-weight-bold">36k</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+          <div class="card card-stats statistic-box mb-4">
+            <div
+              class="d-card-header d-card-header-dashboard card-header-warning card-header-icon position-relative border-0 text-center px-3 py-0"
+            >
+              <p
+                class="card-category text-uppercase fs-10 font-weight-bold text-muted"
+              ></p>
+              <div
+                class="card-icon d-flex align-items-center justify-content-center"
+              >
+                <i class="fas fa-user-circle"></i>
+              </div>
+              Total Customer
+              <p></p>
+            </div>
+            <div class="d-card-footer p-3 text-center">
+              <div class="stats">
+                <h3 class="card-title fs-18 font-weight-bold">12</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+          <div class="card card-stats statistic-box mb-4">
+            <div
+              class="d-card-header d-card-header-dashboard card-header-warning card-header-icon position-relative border-0 text-center px-3 py-0"
+            >
+              <p
+                class="card-category text-uppercase fs-10 font-weight-bold text-muted"
+              ></p>
+              <div
+                class="card-icon d-flex align-items-center justify-content-center"
+              >
+                <i class="fas fa-calendar-minus"></i>
+              </div>
+              Today Booking
+              <p></p>
+            </div>
+            <div class="d-card-footer p-3 text-center">
+              <div class="stats">
+                <h3 class="card-title fs-18 font-weight-bold">4</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header">
+              <h6>Total Booking History</h6>
+            </div>
+            <div class="card-body">
+              <div
+                class="resize-tigger"
+                style="min-width: 300px; height: 300px; margin: 0 auto"
+              >
+                <canvas id="byChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header">
+              <h6>Total Reservation</h6>
+            </div>
+            <div class="card-body">
+              <div class="resize-tigger">
+                <div
+                  id="linechart"
+                  style="min-width: 300px; height: 300px; margin: 0 auto"
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header">
+              <h6>Total Booking Amount vs Total Number of Booking</h6>
+            </div>
+            <div class="card-body">
+              <div
+                class="resize-tigger"
+                style="min-width: 300px; height: 300px; margin: 0 auto"
+              >
+                <h6>Customer Reservation</h6>
+                <div>
+                  <canvas id="coloumchart"></canvas>
+                </div>
+              </div>
+
+              <div
+                class="resize-tigger"
+                style="min-width: 300px; height: 300px; margin: 0 auto"
+              >
+                <div>
+                  <canvas id="coloumchart2"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="card mb-4">
+            <div class="card-header">
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <h6 class="fs-17 font-weight-600 mb-0">Customer List</h6>
+                </div>
+              </div>
+            </div>
+            <div
+              class="card-body p-2"
+              style="
+                min-width: 300px;
+                height: 300px;
+                margin: 0 auto;
+                overflow: auto;
+              "
+            >
+              <div class="message_inner1">
+                <div
+                  class="message_widgets height_320_position ps ps--active-y"
+                >
+                  <div class="inbox-item">
+                    <p class="margin_padding">
+                      <strong class="inbox-item-author"
+                        >Name :Gaurav test</strong
+                      >
+                    </p>
+                    <p class="inbox-item-text">Phone:45445454545</p>
+                    <p class="inbox-item-text">Emailgaurav.soni@nin.com</p>
+                    <p class="inbox-item-text">Address454545</p>
+                  </div>
+                  <div class="inbox-item">
+                    <p class="margin_padding">
+                      <strong class="inbox-item-author"
+                        >Name :Mr abdul saharukh khan khan</strong
+                      >
+                    </p>
+                    <p class="inbox-item-text">Phone:8637256629</p>
+                    <p class="inbox-item-text">Email</p>
+                    <p class="inbox-item-text">
+                      AddressBapuji Nagar, Bhubaneswar,Odisha
+                    </p>
+                  </div>
+                  <div class="inbox-item">
+                    <p class="margin_padding">
+                      <strong class="inbox-item-author"
+                        >Name :Mr soumendra parida parida</strong
+                      >
+                    </p>
+                    <p class="inbox-item-text">Ph+ 9107008441989</p>
+                    <p class="inbox-item-text">
+                      Email soumendra.parida7878@gmail.com
+                    </p>
+                    <p class="inbox-item-text">Address</p>
+                  </div>
+                  <div class="inbox-item">
+                    <p class="margin_padding">
+                      <strong class="inbox-item-author"
+                        >Name : Mr sachin kumar kumar</strong
+                      >
+                    </p>
+                    <p class="inbox-item-text">Phone: +9189080701193233</p>
+                    <p class="inbox-item-text">
+                      Email manoranjankhuntiabpo@gmail.com
+                    </p>
+                    <p class="inbox-item-text">Addressrajabagicha , cuttack</p>
+                  </div>
+                  <div class="inbox-item">
+                    <p class="margin_padding">
+                      <strong class="inbox-item-author"
+                        >Name : Mr chinmaya prasad mohanty prasad
+                        mohanty</strong
+                      >
+                    </p>
+                    <p class="inbox-item-text">Phone: 918637226572</p>
+                    <p class="inbox-item-text">Email</p>
+                    <p class="inbox-item-text">Address</p>
+                  </div>
+                  <div class="inbox-item">
+                    <p class="margin_padding">
+                      <strong class="inbox-item-author"
+                        >Name : anuj chandan nayak</strong
+                      >
+                    </p>
+                    <p class="inbox-item-text">Phone: 9658088321</p>
+                    <p class="inbox-item-text">Email anujchandan@gmail.com</p>
+                    <p class="inbox-item-text">Addressunit8,bhubaneswar</p>
+                  </div>
+                  <div class="inbox-item">
+                    <p class="margin_padding">
+                      <strong class="inbox-item-author"
+                        >Name : chinmaya prasad mohanty</strong
+                      >
+                    </p>
+                    <p class="inbox-item-text">Phone: 8637226527</p>
+                    <p class="inbox-item-text">
+                      Email chinmayamohnty93@gmail.com
+                    </p>
+                    <p class="inbox-item-text">
+                      Addressat/po-nirakarpuar,d-khurdha
+                    </p>
+                  </div>
+                  <div class="inbox-item">
+                    <p class="margin_padding">
+                      <strong class="inbox-item-author"
+                        >Name : soumajit das</strong
+                      >
+                    </p>
+                    <p class="inbox-item-text">Phone: 9040028616</p>
+                    <p class="inbox-item-text">Email soumajitdas@gmail.com</p>
+                    <p class="inbox-item-text">Address9vn bbsr</p>
+                  </div>
+                  <div class="inbox-item">
+                    <p class="margin_padding">
+                      <strong class="inbox-item-author"
+                        >Name : sachin kumar behera</strong
+                      >
+                    </p>
+                    <p class="inbox-item-text">Phone: 8908070119</p>
+                    <p class="inbox-item-text">Email sachin.behera@9vn.in</p>
+                    <p class="inbox-item-text">
+                      Address9vn communication, bapuji nagar, bbsr,751009
+                    </p>
+                  </div>
+                  <div class="inbox-item">
+                    <p class="margin_padding">
+                      <strong class="inbox-item-author"
+                        >Name : soumendra parida</strong
+                      >
+                    </p>
+                    <p class="inbox-item-text">Phone: 7008441989</p>
+                    <p class="inbox-item-text">
+                      Email soumendra.parida7878@gmail.com
+                    </p>
+                    <p class="inbox-item-text">
+                      Addresschakeisiahani.bhubaneswar
+                    </p>
+                  </div>
+                  <div class="inbox-item">
+                    <p class="margin_padding">
+                      <strong class="inbox-item-author"
+                        >Name : jeet love</strong
+                      >
+                    </p>
+                    <p class="inbox-item-text">Phone: 07735953646</p>
+                    <p class="inbox-item-text">
+                      Email manoranjanlove12@gmail.com
+                    </p>
+                    <p class="inbox-item-text">Addressbapuji nagar</p>
+                  </div>
+                  <div class="inbox-item">
+                    <p class="margin_padding">
+                      <strong class="inbox-item-author"
+                        >Name : Pranab Panda</strong
+                      >
+                    </p>
+                    <p class="inbox-item-text">Phone: 9937005640</p>
+                    <p class="inbox-item-text">
+                      Email pranab.panda@9vngroup.com
+                    </p>
+                    <p class="inbox-item-text">
+                      AddressSCR 201.3rd floor towards mausimaa Bridge Near
+                      Venus Inn restaurant.
+                    </p>
+                  </div>
+                  <div class="ps__rail-x" style="left: 0px; top: 0px">
+                    <div
+                      class="ps__thumb-x"
+                      tabindex="0"
+                      style="left: 0px; width: 0px"
+                    ></div>
+                  </div>
+                  <div
+                    class="ps__rail-y"
+                    style="top: 0px; height: 320px; right: 0px"
+                  >
+                    <div
+                      class="ps__thumb-y"
+                      tabindex="0"
+                      style="top: 0px; height: 88px"
+                    ></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header">
+              <h6>Total Booking List</h6>
+            </div>
+            <div class="card-body">
+              <div
+                class="resize-tigger"
+                style="min-width: 300px; height: 300px; margin: 0 auto"
+              ></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="card mb-4">
+            <div class="card-header">
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <h6 class="fs-17 font-weight-600 mb-0">Next Day Booking</h6>
+                </div>
+              </div>
+            </div>
+            <div
+              class="card-body p-2"
+              style="
+                min-width: 300px;
+                height: 300px;
+                margin: 0 auto;
+                overflow: auto;
+              "
+            ></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<%- include('partials/footer.ejs') %>
